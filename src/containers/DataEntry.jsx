@@ -22,7 +22,7 @@ function DataInput() {
   );
 
   return (
-    <>
+    <div className="data-entry">
       <DemographicsInput setVisibility={showDemographics} visible={demographics} />
       <Tabs tabBarExtraContent={operations}>
         <TabPane tab="Pre" key='1'>
@@ -32,7 +32,7 @@ function DataInput() {
           <SessionInput sessionType={POST_DIMENSION} />
         </TabPane>
       </Tabs>
-    </>
+    </div>
   );
 }
 

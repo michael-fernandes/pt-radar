@@ -16,10 +16,10 @@ function SingleInput({ label, convert, type }) {
     [dispatch],
   )
   return (
-    <div>
-      <span>{label}</span>
-      <Input onChange={(e) => storeInput(label, e.target.value)}></Input>
-      {convert && <span>Conversion: {convert('')}</span>}
+    <div className="input-wrapper">
+      <div className="input-label">{label}:</div>
+      <Input onChange={(e) => storeInput(label, e.target.value)} className="input-input" size='medium'></Input>
+      {/* {convert && <span>Conversion: {convert('')}</span>} */}
     </div>
   )
 }

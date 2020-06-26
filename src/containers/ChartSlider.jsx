@@ -24,9 +24,23 @@ export default function Chart() {
   // const [index, ] = useState(0);
 
   return (
-    <div className="single-chart-wrapper">
-      <h2>Physical Therapy Chart</h2>
-      <RadarReact className="single-chart-chart" />
+    <div className="chart-wrapper">
+      <CarouselProvider
+        totalSlides={2}
+        visibleSlides={1}
+        naturalSlideWidth={150}
+        naturalSlideHeight={150}
+      >
+        <Slider>
+          <Slide index={0} className="chart-chart">
+            <BarReact />
+          </Slide>
+          <Slide index={1}>
+            <RadarReact className="chart-chart" />
+          </Slide>
+        </Slider>
+        <DotGroup dotNumber />
+      </CarouselProvider >
     </div >
   )
 }

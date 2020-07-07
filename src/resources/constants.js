@@ -21,6 +21,7 @@ export const TURNS = "Turns";
 export const SPEED = 'meters/second';
 export const TIME = 'seconds';
 export const STEPS = 'steps';
+export const UNITS = '';
 
 // ACTIONS
 export const PRE_DIMENSION = 'PRE_DIMENSION';

@@ -28,7 +28,7 @@ export default function RadarReact() {
   const height = width * 1.1;
   console.log(width);
   return (
-    <RadarChart cx={width / 2} cy={height / 2} outerRadius={width * 0.90 / 2} width={width} height={height} data={generateData(preData, postData, labels)}>
+    <RadarChart cx={width / 2.1} cy={height / 2} outerRadius={width * 0.6 / 2} width={width} height={height} data={generateData(preData, postData, labels)}>
       <PolarGrid />
       <PolarAngleAxis dataKey="dimension" />
       <PolarRadiusAxis angle={90} domain={[0, 5]} ticks={[1, 2, 3, 4]} />

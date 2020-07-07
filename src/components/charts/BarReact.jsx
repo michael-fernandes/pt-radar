@@ -3,16 +3,6 @@ import {
   BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 
-import {
-  GAIT_ID,
-  STEPS_ID,
-  TUG_ID,
-  TURNS_ID,
-  SWAY_ID,
-  BALANCE_ID,
-  FIVETS
-} from '../../resources/constants';
-
 import { useSelector } from 'react-redux';
 import { getPreData, getPostData, getLabels } from '../../store/selectors';
 

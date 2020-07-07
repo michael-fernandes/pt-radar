@@ -17,6 +17,11 @@ export const GAIT = 'Gait';
 export const BALANCE = 'Balance';
 export const TURNS = "Turns";
 
+//  metrics
+export const SPEED = 'meters/second';
+export const TIME = 'seconds';
+export const STEPS = 'steps';
+
 // ACTIONS
 export const PRE_DIMENSION = 'PRE_DIMENSION';
 export const POST_DIMENSION = 'POST_DIMENSION';

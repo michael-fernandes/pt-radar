@@ -18,7 +18,7 @@ function SingleInput({ label, convert, type }) {
   return (
     <div className="input-wrapper">
       <div className="input-label">{label}:</div>
-      <Input onChange={(e) => storeInput(label, e.target.value)} className="input-input" size='medium'></Input>
+      <Input onChange={(e) => storeInput(label, e.target.value)} className="input-input" size='small'></Input>
       {/* {convert && <span>Conversion: {convert('')}</span>} */}
     </div>
   )

@@ -18,13 +18,13 @@ function simpleConvert(text) {
 export default function SessionInput({ sessionType }) {
   return (
     <>
-      <SingleInput label={BALANCE_ID} convert={simpleConvert} type={sessionType} />
-      <SingleInput label={SWAY_ID} convert={simpleConvert} type={sessionType} />
-      <SingleInput label={FIVETS} convert={simpleConvert} type={sessionType} />
-      <SingleInput label={TUG_ID} convert={simpleConvert} type={sessionType} />
-      <SingleInput label={TURNS_ID} convert={simpleConvert} type={sessionType} />
-      <SingleInput label={STEPS_ID} convert={simpleConvert} type={sessionType} />
-      <SingleInput label={GAIT_ID} convert={simpleConvert} type={sessionType} />
+      <SingleInput label={BALANCE_ID} convert={simpleConvert} type={sessionType} text="" />
+      <SingleInput label={SWAY_ID} convert={simpleConvert} type={sessionType} text="" />
+      <SingleInput label={FIVETS} convert={simpleConvert} type={sessionType} text="" />
+      <SingleInput label={TUG_ID} convert={simpleConvert} type={sessionType} text="" />
+      <SingleInput label={TURNS_ID} convert={simpleConvert} type={sessionType} text="" />
+      <SingleInput label={STEPS_ID} convert={simpleConvert} type={sessionType} text="" />
+      <SingleInput label={GAIT_ID} convert={simpleConvert} type={sessionType} text="" />
     </>
   );
 }

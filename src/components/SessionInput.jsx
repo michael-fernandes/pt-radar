@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SingleInput from '../ui/SingleInput';
+import SingleDropdown from '../ui/SingleDropdown';
 import {
   GAIT_ID,
   STEPS_ID,
@@ -8,7 +9,11 @@ import {
   TURNS_ID,
   SWAY_ID,
   BALANCE_ID,
-  FIVETS
+  FIVETS,
+  SPEED,
+  TIME,
+  STEPS,
+  DEVICE_UNITS,
 } from '../resources/constants';
 
 function simpleConvert(text) {
@@ -18,13 +23,13 @@ function simpleConvert(text) {
 export default function SessionInput({ sessionType }) {
   return (
     <>
-      <SingleInput label={BALANCE_ID} convert={simpleConvert} type={sessionType} text="" />
-      <SingleInput label={SWAY_ID} convert={simpleConvert} type={sessionType} text="" />
-      <SingleInput label={FIVETS} convert={simpleConvert} type={sessionType} text="" />
-      <SingleInput label={TUG_ID} convert={simpleConvert} type={sessionType} text="" />
-      <SingleInput label={TURNS_ID} convert={simpleConvert} type={sessionType} text="" />
-      <SingleInput label={STEPS_ID} convert={simpleConvert} type={sessionType} text="" />
-      <SingleInput label={GAIT_ID} convert={simpleConvert} type={sessionType} text="" />
+      <SingleDropdown label={BALANCE_ID} convert={simpleConvert} type={sessionType} score={true} />
+      <SingleDropdown label={SWAY_ID} convert={simpleConvert} type={sessionType} score={true} text={DEVICE_UNITS} />
+      <SingleInput label={FIVETS} convert={simpleConvert} type={sessionType} score={true} text={TIME} />
+      <SingleInput label={TUG_ID} convert={simpleConvert} type={sessionType} score={true} text={TIME} />
+      <SingleInput label={TURNS_ID} convert={simpleConvert} type={sessionType} score={true} text={SPEED} />
+      <SingleInput label={STEPS_ID} convert={simpleConvert} type={sessionType} score={true} text={STEPS} />
+      <SingleInput label={GAIT_ID} convert={simpleConvert} type={sessionType} score={true} text={SPEED} />
     </>
   );
 }

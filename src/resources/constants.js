@@ -21,11 +21,12 @@ export const TURNS = "Turns";
 export const SPEED = 'meters/second';
 export const TIME = 'seconds';
 export const STEPS = 'steps';
-export const UNITS = '';
+export const DEVICE_UNITS = '';
 
 // ACTIONS
 export const PRE_DIMENSION = 'PRE_DIMENSION';
 export const POST_DIMENSION = 'POST_DIMENSION';
 export const DEMOGRAPHICS_DIMENSION = 'DEMOGRAPHICS_DIMENSION';
+export const SCORE_DIMENSION = 'SCORE_DIMENSION';
 
 

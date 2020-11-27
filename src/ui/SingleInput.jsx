@@ -3,10 +3,11 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { addDimension } from '../store/actions';
-import { Input } from 'antd';
+import { Input, Button } from 'antd';
 
-function SingleInput({ label, convert, type }) {
+function SingleInput({ label, convert, type, text, score }) {
   const dispatch = useDispatch();
+  const [showInput, setInputVisibility] = useState(score !== false);
 
   const storeInput = useCallback(
     (dimension, value) => {
@@ -15,10 +16,15 @@ function SingleInput({ label, convert, type }) {
     ,
     [dispatch],
   )
+  console.log(showInput);
   return (
     <div className="input-wrapper">
       <div className="input-label">{label}:</div>
-      <Input onChange={(e) => storeInput(label, e.target.value)} className="input-input" size='small'></Input>
+      {showInput
+        ? <Button size="small" onClick={() => setInputVisibility()}>Score</Button>
+        : <Input onChange={(e) => storeInput(label, e.target.value)} className="input-input" size='small' placeholder={text}></Input>
+      }
+
       {/* {convert && <span>Conversion: {convert('')}</span>} */}
     </div>
   )
@@ -31,9 +37,15 @@ SingleInput.propTypes = {
   conversionFunction: PropTypes.func,
   update: PropTypes.func,
   type: PropTypes.string,
+  placeholder: PropTypes.string,
+  score: PropTypes.bool,
+  options: PropTypes.array,
 }
 
 SingleInput.defaultProps = {
   label: 'dimension',
   update: () => '',
+  placeholder: '',
+  score: false,
+  options: [],
 }

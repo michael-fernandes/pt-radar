@@ -4,6 +4,7 @@ import {
   PRE_DIMENSION,
   POST_DIMENSION,
   DEMOGRAPHICS_DIMENSION,
+  SCORE_DIMENSION,
 } from '../resources/constants';
 
 export const addDimension = (session, dimension, value) => {
@@ -13,7 +14,6 @@ export const addDimension = (session, dimension, value) => {
     case POST_DIMENSION:
       return postDimension(dimension, value);
     case DEMOGRAPHICS_DIMENSION:
-      console.log(session);
       return demographicDimension(dimension, value);
     default:
       return {};
@@ -36,6 +36,14 @@ const preDimension = createAction(
 
 const postDimension = createAction(
   POST_DIMENSION,
+  (dimension, value) => ({
+    [dimension]: value,
+  })
+);
+
+
+export const scoreDimension = createAction(
+  SCORE_DIMENSION,
   (dimension, value) => ({
     [dimension]: value,
   })

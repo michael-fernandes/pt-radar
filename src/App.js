@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Chart from './containers/Chart';
 import DataEntry from './containers/DataEntry';
 import './App.css';

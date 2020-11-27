@@ -13,14 +13,6 @@ function SingleDropdown({ label, convert, type, text, score }) {
   const [showInput, setInputVisibility] = useState(score !== false);
   const [selected, selectOption] = useState('');
 
-  const storeInput = useCallback(
-    (dimension, value) => {
-      selectOption(options[value]);
-      dispatch(addDimension(type, dimension, value));
-    }
-    ,
-    [dispatch],
-  )
   const options = [
     "Usual Base for 30sec",
     "Narrow Base for 30sec",
@@ -28,6 +20,15 @@ function SingleDropdown({ label, convert, type, text, score }) {
     "Tandem for 30sec",
     "Single Leg for 30sec",
   ];
+  
+  const storeInput = useCallback(
+    (dimension, value) => {
+      selectOption(options[value]);
+      dispatch(addDimension(type, dimension, value));
+    }
+    ,
+    [dispatch, type, options],
+  )
 
   const menu = (
     <Menu onClick={(e) => storeInput(label, e.key)} size="medium">

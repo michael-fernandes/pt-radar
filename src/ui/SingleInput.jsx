@@ -14,9 +14,9 @@ function SingleInput({ label, convert, type, text, score }) {
       dispatch(addDimension(type, dimension, value));
     }
     ,
-    [dispatch],
+    [dispatch, type],
   )
-  console.log(showInput);
+
   return (
     <div className="input-wrapper">
       <div className="input-label">{label}:</div>

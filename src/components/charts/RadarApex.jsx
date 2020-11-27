@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Radar } from 'react-chartjs-2';
+import React from 'react';
+// import { Radar } from 'react-chartjs-2';
 import Chart from "react-apexcharts";
 import { useSelector } from 'react-redux';
 import { getPreData, getPostData, getLabels } from '../../store/selectors';
@@ -11,19 +11,19 @@ function getData(data, labels) {
   return dataSlice;
 }
 
-const genSettings = (color, labels, data, label) => {
-  return {
-    label,
-    backgroundColor: `rgba(${color}, 0.2)`,
-    borderColor: `rgb(${color})`,
-    pointBackgroundColor: `rgb(${color})`,
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: `rgb(${color})`,
-    borderWidth: '10px',
-    data: getData(label, data, labels),
-  }
-}
+// const genSettings = (color, labels, data, label) => {
+//   return {
+//     label,
+//     backgroundColor: `rgba(${color}, 0.2)`,
+//     borderColor: `rgb(${color})`,
+//     pointBackgroundColor: `rgb(${color})`,
+//     pointBorderColor: '#fff',
+//     pointHoverBackgroundColor: '#fff',
+//     pointHoverBorderColor: `rgb(${color})`,
+//     borderWidth: '10px',
+//     data: getData(label, data, labels),
+//   }
+// }
 
 const colors = [
   '0, 63, 92',

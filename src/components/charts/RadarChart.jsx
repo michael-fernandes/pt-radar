@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Radar } from 'react-chartjs-2';
-import { keys, merge, uniqBy } from 'lodash'
 import { useSelector } from 'react-redux';
 import { getPreData, getPostData, getLabels } from '../../store/selectors';
 

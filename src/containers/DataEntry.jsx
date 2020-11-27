@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Button, Modal } from 'antd';
+import { Tabs, Button } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 
 import DemographicsInput from '../components/DemographicsInput';

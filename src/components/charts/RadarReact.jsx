@@ -26,7 +26,7 @@ export default function RadarReact() {
   const labels = useSelector(getLabels);
   const width = window.innerWidth < 500 ? window.innerWidth : 500;
   const height = width * 1.1;
-  console.log(width);
+
   return (
     <RadarChart cx={width / 2.1} cy={height / 2} outerRadius={width * 0.6 / 2} width={width} height={height} data={generateData(preData, postData, labels)}>
       <PolarGrid />

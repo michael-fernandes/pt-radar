@@ -16,7 +16,7 @@ function SingleInput({ label, convert, type, text, score }) {
     ,
     [dispatch],
   )
-  console.log(showInput);
+
   return (
     <div className="input-wrapper">
       <div className="input-label">{label}:</div>

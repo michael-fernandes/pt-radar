@@ -13,6 +13,9 @@ function SingleDropdown({ label, convert, type, text, score }) {
   const [showInput, setInputVisibility] = useState(score !== false);
   const [selected, selectOption] = useState('');
 
+  const handleChange = (value) => {
+    storeInput(label, value.item.props.value)
+  }
   const storeInput = useCallback(
     (dimension, value) => {
       selectOption(options[value]);
@@ -30,15 +33,21 @@ function SingleDropdown({ label, convert, type, text, score }) {
   ];
 
   const menu = (
-    <Menu onClick={(e) => storeInput(label, e.key)} size="medium">
-      <Menu.Item key="1">
-        1st menu item
+    <Menu onClick={handleChange} size="medium">
+      <Menu.Item key="1" value={1}>
+        1- 20 seconds
       </Menu.Item>
-      <Menu.Item key="2">
-        2nd menu item
+      <Menu.Item key="2" value={2}>
+        21- 40 seconds
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
-        3rd item
+      <Menu.Item key="3" value={3}>
+        41- 60 seconds
+      </Menu.Item>
+      <Menu.Item key="4"  value={4}>
+        61- 80 seconds
+      </Menu.Item>
+      <Menu.Item key="5"  value={5}>
+        81- 100 seconds
       </Menu.Item>
     </Menu>
   );

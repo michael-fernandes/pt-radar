@@ -56,7 +56,7 @@ export default function RadarApex() {
       }
     },
     title: {
-      text: 'Radar Chart'
+      text: 'Physical Therapy Map'
     },
     stroke: {
       width: 2

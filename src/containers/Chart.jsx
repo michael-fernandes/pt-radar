@@ -25,7 +25,7 @@ export default function Chart() {
 
   return (
     <div className="single-chart-wrapper">
-      <h2>Physical Therapy Chart</h2>
+      <h2>Physio Map</h2>
       <RadarReact className="single-chart-chart" />
     </div >
   )

@@ -29,7 +29,6 @@ const colors = [
 ];
 
 export default function RadarChart() {
-
   const preData = useSelector(getPreData);
   const postData = useSelector(getPostData);
   const labels = useSelector(getLabels);

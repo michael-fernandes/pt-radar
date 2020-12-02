@@ -29,4 +29,7 @@ export const POST_DIMENSION = 'POST_DIMENSION';
 export const DEMOGRAPHICS_DIMENSION = 'DEMOGRAPHICS_DIMENSION';
 export const SCORE_DIMENSION = 'SCORE_DIMENSION';
 
+// Session
+export const SESSION = 'SESSION';
+
 

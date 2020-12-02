@@ -5,6 +5,7 @@ import {
   POST_DIMENSION,
   DEMOGRAPHICS_DIMENSION,
   SCORE_DIMENSION,
+  SESSION,
 } from '../resources/constants';
 
 export const addDimension = (session, dimension, value) => {
@@ -48,4 +49,10 @@ export const scoreDimension = createAction(
     [dimension]: value,
   })
 );
+
+export const setSession = createAction(
+  SESSION,
+  (key) =>({session:key})
+);
+
 

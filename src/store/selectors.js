@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { get, union, uniqBy, keys } from 'lodash';
+import { shapeData } from '../util';
+import { get, union, keys } from 'lodash';
 import {
   GAIT_ID,
   STEPS_ID,
@@ -19,8 +20,6 @@ const labelOrder = [
   BALANCE_ID,
   FIVETS
 ];
-
-window.l = labelOrder;
 
 function sortLabelsByOrder(pre, post) {
   const labels = union(keys(pre), keys(post));
@@ -47,3 +46,10 @@ export const getLabels = createSelector(
   getPostData,
   (pre, post) => sortLabelsByOrder(pre, post)
 );
+
+export const getSessionData = createSelector(
+  getPreData,
+  getPostData,
+  (state) => get(state, ['session', 'session'], {}),
+  (pre, post, session, dud) => shapeData(session === 'Post' ? post : pre),
+)

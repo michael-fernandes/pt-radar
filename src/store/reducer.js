@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import {
   PRE_DIMENSION,
   POST_DIMENSION,
-  DEMOGRAPHICS_DIMENSION
+  DEMOGRAPHICS_DIMENSION,
+  SESSION,
 } from '../resources/constants';
 
 function pre(state = {}, action) {
@@ -32,8 +33,18 @@ function demographics(state = {}, action) {
   }
 }
 
+function session(state = {}, action) {
+  switch (action.type) {
+    case SESSION:
+      return { ...state, ...action.payload };
+    default:
+      return { ...state };
+  }
+}
+
 export default combineReducers({
   pre,
   post,
-  demographics
+  demographics,
+  session
 });

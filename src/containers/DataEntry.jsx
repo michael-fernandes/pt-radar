@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSession } from '../store/actions';
+
 import { Tabs, Button } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 
@@ -13,6 +16,7 @@ import {
 const { TabPane } = Tabs;
 
 function DataInput() {
+  const dispatch = useDispatch();
   const [demographics, showDemographics] = useState(false);
 
   const operations = (
@@ -20,15 +24,19 @@ function DataInput() {
       <SettingOutlined />
     </Button>
   );
+  const handleChange = useCallback(
+    (key) => dispatch(setSession(key)),
+    [dispatch],
+  )
 
   return (
     <div className="data-entry">
       <DemographicsInput setVisibility={showDemographics} visible={demographics} />
-      <Tabs tabBarExtraContent={operations}>
-        <TabPane tab="Pre" key='1'>
+      <Tabs tabBarExtraContent={operations} onChange={handleChange}>
+        <TabPane tab="Pre" key='Pre' >
           <SessionInput sessionType={PRE_DIMENSION} />
         </TabPane>
-        <TabPane tab="Post" key='2'>
+        <TabPane tab="Post" key='Post'>
           <SessionInput sessionType={POST_DIMENSION} />
         </TabPane>
       </Tabs>

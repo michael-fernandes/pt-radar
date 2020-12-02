@@ -1,13 +1,13 @@
 import { max } from 'd3';
-import { DATA_DIMENSIONS as dataDimensions } from '.';
 
 export function generativeData(dataDimensions) {
-  let dataset = [];
+  const dataSet = [];
+  const labels = []
   let slice = 0;
-   Object.keys(dataDimensions.dims).map(d => {
+  Object.keys(dataDimensions.dims).forEach(d => {
     for (let i = 0; i < dataDimensions.levels; i++) {
       const active = i < dataDimensions.dims[d]
-      dataset.push({
+      dataSet.push({
         slice: slice,
         name: d,
         level: i,
@@ -15,10 +15,16 @@ export function generativeData(dataDimensions) {
         ket: `${d + i + active}`
       })
     }
-    slice += 1;
-   });
 
-  return dataset;
+    labels.push({
+      name: d,
+      slice,
+    })
+    
+    slice += 1;
+  });
+
+  return { data: dataSet, labels };
 }
 
 export const multiply = (vals) => vals.reduce((a,b) => a * b);

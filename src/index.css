@@ -37,22 +37,23 @@ body {
   fill:black;
 }
 
-.chart-wrapper {
-  height: 500px;
-  border: 2px solid orange;
-}
-
 .chart-chart {
   border: 2px solid black;
 }
 
 
 .single-chart-wrapper {
-  display: flex;
+  display: grid;
   flex-direction: column;
   justify-content: center;
+  max-height: 60vh;
   padding:5px
 }
+
+/* .chart {
+  max-width: 300px;
+  max-height: 300px;
+} */
 
 .single-chart-chart {
   padding: 10px;

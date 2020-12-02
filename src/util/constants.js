@@ -1,7 +1,8 @@
 import { max } from 'd3';
 
 export const PAD_ANGLE = 0.01;
-export const SPACE_BETWEEN_ARCS = 3;
+export const SPACE_BETWEEN_ARCS = 1;
+export const INNER_RADIUS = 15;
 
 export const inputData = {
   'foot': 4, 

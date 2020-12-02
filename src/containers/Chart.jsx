@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMeasure } from "react-use";
 import { ChartArea } from '../components/custom/chart';
 // import { Radar } from '../components/charts/RadarChart';
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -23,12 +24,14 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 // };
 
 export default function Chart() {
+  const [ref, { width, height }] = useMeasure();
+
   // const [index, ] = useState(0);
 
   return (
-    <div className="single-chart-wrapper">
+    <div ref={ref} className="single-chart-wrapper">
       <h2>Physical Therapy Chart</h2>
-      <ChartArea className="single-chart-chart" />
+      <ChartArea width={width} height={height} />
       {/* <RadarReact /> */}
     </div >
   )

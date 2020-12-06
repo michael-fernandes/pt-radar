@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMeasure } from "react-use";
 import { ChartArea } from '../components/custom/chart';
-// import { Radar } from '../components/charts/RadarChart';
+import RadarChart from '../components/charts/RadarChart';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
 // import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
@@ -30,9 +30,11 @@ export default function Chart() {
 
   return (
     <div ref={ref} className="single-chart-wrapper">
-      <h2>Physical Therapy Chart</h2>
-      <ChartArea width={width} height={height} />
-      {/* <RadarReact /> */}
-    </div >
+      <div className="chart-wrapper">
+        <h2>Physio Map</h2>
+        <RadarChart width={width} height={height} className="single-chart-chart" />
+        {/* <ChartArea width={width} height={height} /> */}
+      </div>
+    </div>
   )
 }

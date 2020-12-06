@@ -5,13 +5,26 @@ import PropTypes from 'prop-types';
 import { addDimension } from '../store/actions';
 import { Button, Dropdown, Menu } from 'antd';
 
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 
 
 function SingleDropdown({ label, convert, type, text, score }) {
   const dispatch = useDispatch();
   const [showInput, setInputVisibility] = useState(score !== false);
   const [selected, selectOption] = useState('');
+
+  const storeInput = useCallback(
+    (dimension, value) => {
+      selectOption(options[value]);
+      dispatch(addDimension(type, dimension, value));
+    }
+    ,
+    [dispatch],
+  )
+
+  const handleChange = (value) => {
+    storeInput(label, value.item.props.value)
+  }
 
   const options = [
     "Usual Base for 30sec",
@@ -20,26 +33,23 @@ function SingleDropdown({ label, convert, type, text, score }) {
     "Tandem for 30sec",
     "Single Leg for 30sec",
   ];
-  
-  const storeInput = useCallback(
-    (dimension, value) => {
-      selectOption(options[value]);
-      dispatch(addDimension(type, dimension, value));
-    }
-    ,
-    [dispatch, type, options],
-  )
 
   const menu = (
-    <Menu onClick={(e) => storeInput(label, e.key)} size="medium">
-      <Menu.Item key="1">
-        1st menu item
+    <Menu onClick={handleChange} size="medium">
+      <Menu.Item key="1" value={1}>
+        1- 20 seconds
       </Menu.Item>
-      <Menu.Item key="2">
-        2nd menu item
+      <Menu.Item key="2" value={2}>
+        21- 40 seconds
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
-        3rd item
+      <Menu.Item key="3" value={3}>
+        41- 60 seconds
+      </Menu.Item>
+      <Menu.Item key="4"  value={4}>
+        61- 80 seconds
+      </Menu.Item>
+      <Menu.Item key="5"  value={5}>
+        81- 100 seconds
       </Menu.Item>
     </Menu>
   );

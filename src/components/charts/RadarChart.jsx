@@ -43,7 +43,7 @@ export default function RadarChart() {
 
   return (
     <div className="chart">
-      <Radar data={data} width={10} height={9} />
+      <Radar data={data}/>
     </div >
   );
 }

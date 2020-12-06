@@ -3,22 +3,26 @@ import { shapeData } from '../util';
 import { get, union, keys } from 'lodash';
 import {
   GAIT_ID,
-  STEPS_ID,
-  TUG_ID,
-  TURNS_ID,
-  SWAY_ID,
+  STRIDE_LENGTH_ID,
   BALANCE_ID,
-  FIVETS
+  SWAY_AREA_ID,
+  SWAY_RMS_ID,
+  TURN_DURATION_ID,
+  TURN_VELOCITY_ID,
+  FTSTS_TIME,
+  SIT_TO_STAND_DURATION,
 } from '../resources/constants';
 
 const labelOrder = [
   GAIT_ID,
-  STEPS_ID,
-  TUG_ID,
-  TURNS_ID,
-  SWAY_ID,
+  STRIDE_LENGTH_ID,
   BALANCE_ID,
-  FIVETS
+  SWAY_AREA_ID,
+  SWAY_RMS_ID,
+  TURN_DURATION_ID,
+  TURN_VELOCITY_ID,
+  FTSTS_TIME,
+  SIT_TO_STAND_DURATION,
 ];
 
 function sortLabelsByOrder(pre, post) {
@@ -51,5 +55,12 @@ export const getSessionData = createSelector(
   getPreData,
   getPostData,
   (state) => get(state, ['session', 'session'], {}),
-  (pre, post, session, dud) => shapeData(session === 'Post' ? post : pre),
+  (session) => shapeData(session === 'Post' ? getPostData : getPreData),
 )
+
+export const getDimensionData =( sesh, dim) => {
+  return createSelector(
+    state => get(state, ['session', `${sesh === "POST_DIMENSION" ? 'pre' : 'post'}`, dim], 0),
+    (val) => console.log(val),
+  );
+}

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
+import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
 // import Pagination from 'docs/src/modules/components/Pagination';
 
 // import Carousel, { Dots } from '@brainhubeu/react-carousel';

@@ -1,11 +1,22 @@
 // LABELS
+
+//gait
 export const GAIT_ID = 'Gait Speed';
-export const STEPS_ID = 'Steps in turn';
-export const TURNS_ID = 'Turns';
-export const TUG_ID = 'TUG';
-export const SWAY_ID = 'Postural Sway';
-export const BALANCE_ID = 'Static Balance';
-export const FIVETS = 'Sit to Stand';
+export const STRIDE_LENGTH_ID = 'Stride Length';
+
+//balance
+export const BALANCE_ID = '90-sec Balance';
+export const SWAY_AREA_ID = 'Postural Sway Area, ECUB';
+export const SWAY_RMS_ID = 'Postural Sway RMS, ECUB';
+
+//Turns
+export const TURN_DURATION_ID = '360-Turn Duration';
+export const TURN_VELOCITY_ID = '360-Turn Peak Velocity';
+
+//Sit to stand
+export const FTSTS_TIME = 'FTSTS Time';
+export const SIT_TO_STAND_DURATION = 'Sit to Stand Duration';
+
 
 export const AGE = 'Age';
 export const COGNITIVE_STATUS = 'Cognitive Status';
@@ -18,10 +29,11 @@ export const BALANCE = 'Balance';
 export const TURNS = "Turns";
 
 //  metrics
-export const SPEED = 'meters/second';
+export const SPEED = 'm/s';
 export const TIME = 'seconds';
 export const STEPS = 'steps';
 export const DEVICE_UNITS = '';
+export const DISTANCE = 'meters';
 
 // ACTIONS
 export const PRE_DIMENSION = 'PRE_DIMENSION';

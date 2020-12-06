@@ -1,3 +1,5 @@
+import { isNull } from 'lodash';
+
 /* eslint-disable import/prefer-default-export */
 import { createAction } from 'redux-actions';
 import {
@@ -8,14 +10,20 @@ import {
   SESSION,
 } from '../resources/constants';
 
+import {
+  binByDimension
+} from '../util/bin';
+
 export const addDimension = (session, dimension, value) => {
+  console.log(dimension);
+  const validatedValue = binByDimension[dimension](value);
   switch (session) {
     case PRE_DIMENSION:
-      return preDimension(dimension, value);
+      return preDimension(dimension, validatedValue);
     case POST_DIMENSION:
-      return postDimension(dimension, value);
+      return postDimension(dimension, validatedValue);
     case DEMOGRAPHICS_DIMENSION:
-      return demographicDimension(dimension, value);
+      return demographicDimension(dimension, validatedValue);
     default:
       return {};
   }

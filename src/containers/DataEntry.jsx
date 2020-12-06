@@ -1,12 +1,13 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSession } from '../store/actions';
 
 import { Tabs, Button } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 
 import DemographicsInput from '../components/DemographicsInput';
-import SessionInput from '../components/SessionInput';
+import Session from './Session';
+import { getPreData, getPostData } from '../store/selectors';
 
 import {
   PRE_DIMENSION,
@@ -17,7 +18,10 @@ const { TabPane } = Tabs;
 
 function DataInput() {
   const dispatch = useDispatch();
+  const preData = useSelector(getPreData);
+  const postData = useSelector(getPostData);
   const [demographics, showDemographics] = useState(false);
+  console.log(preData, postData);
 
   const operations = (
     <Button type='link' onClick={() => showDemographics(true)}>
@@ -34,10 +38,10 @@ function DataInput() {
       <DemographicsInput setVisibility={showDemographics} visible={demographics} />
       <Tabs tabBarExtraContent={operations} onChange={handleChange}>
         <TabPane tab="Pre" key='Pre' >
-          <SessionInput sessionType={PRE_DIMENSION} />
+          <Session sessionType={PRE_DIMENSION} data={preData} />
         </TabPane>
         <TabPane tab="Post" key='Post'>
-          <SessionInput sessionType={POST_DIMENSION} />
+          <Session sessionType={POST_DIMENSION} data={postData} />
         </TabPane>
       </Tabs>
     </div>

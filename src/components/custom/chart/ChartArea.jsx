@@ -8,19 +8,15 @@ import {  getSessionData } from '../../../store/selectors';
 
 const pi = Math.PI;
 
-console.log(pi / 4);
 const radians = (degrees) => degrees * (pi/180);
 
-
-const xRadiusFunc = (radius, theta, slice) => 
-  (radius) * Math.cos(theta * (slice) - (pi / 4));
+const xfunc = (radius, theta, slice) => 
+  (radius) * Math.cos(theta * (slice) - (theta / 2));
 
 const xRadius = (radius, theta, slice) => {
-  const xR = xRadiusFunc(radius, theta, slice);
-  console.log(xR);
-  return xR;
+  const xr = xfunc(radius, theta, slice);
+  return xr;
 }
-
 const yRadius = (radius, theta, slice) => 
  (radius) * Math.sin(theta * (slice) - (pi / 4));
 
@@ -29,7 +25,6 @@ function ChartArea({ width, height}) {
   const textRef = useRef();
   
   const data = useSelector(getSessionData);
-  const dims = data.data;
   const slices = data.labels.length;
   const partitions = 6; 
 
@@ -38,7 +33,6 @@ function ChartArea({ width, height}) {
   const radius = half / 2;
   const theta = radians(360 / slices);
 
-  const innerRadiusBuffer = 10;
   const ringWidth = (radius - INNER_RADIUS) / (partitions);
 
   const getAngle = useCallback(
@@ -46,8 +40,18 @@ function ChartArea({ width, height}) {
   , [slices]);
   
   const getAnchor = useCallback(
-    (slice) => 
-  , [theta])
+    (d) => { 
+      const circlePosition = Math.round((d.slice / slices) * 100) / 100; 
+      if(circlePosition === 1 || circlePosition === 0.5){
+        return 'middle'
+      } else if(circlePosition < 0.5){
+        return 'start'
+      } else {
+        return 'end'
+      }
+    }
+  , [width, height, slices]);
+
   const arcGen = useCallback((slice, level) => {
     let startRadius = (level * ringWidth) + INNER_RADIUS;
     return arc()
@@ -95,9 +99,7 @@ function ChartArea({ width, height}) {
         .attr("x", (d) => xRadius(radius, theta, d.slice ))
         .attr('y', (d) => yRadius(radius, theta, d.slice ))
         .attr('color', (d, i) => 'orange' )
-        .attr('text-anchor', d =>  
-          radians(theta, d.slice) < radians(360/2) ? 'start' : 'end'
-        )
+        .attr('text-anchor', (d) => getAnchor(d))
         // .attr('fill', (d, i) => console.log(d) )
         .text (d => `${d.slice + d.name}`)
     , [radius, theta]);
@@ -106,10 +108,10 @@ function ChartArea({ width, height}) {
     enter
       .append('text')
       .attr("transform", `translate(${width / 2},${height / 2})`)
-        .attr('key', d => d)
+        .attr('key', d => `${d.name + d.slice}`)
         .attr('class', 'labels')
         .attr('font-size', 12)
-        .attr('text-anchor', 'start')
+        .attr('text-anchor', (d) => getAnchor(d))
         .text (d => `${d.slice + d.name}`)
         .attr("x", (d) => xRadius(radius, theta, d.slice ))
         .attr('y', (d) => yRadius(radius, theta, d.slice ))

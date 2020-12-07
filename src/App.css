@@ -12,6 +12,19 @@ h2 {
   text-align: center;
 }
 
+/* no data */
+.no-data {
+  text-align: center;
+  height: 300px;
+  display: grid;
+  place-items: center;
+}
+
+.no-data > img {
+  display: block;
+  padding: 10px;
+}
+
 /* drawer */
 .dragg-up-button {
   background: white;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
-import { getPreData, getPostData, getLabels } from '../../store/selectors';
+import { getPreData, getPostData, getLabels } from '../store/selectors';
 
 function getData(label, data, labels) {
   const dataSlice = []

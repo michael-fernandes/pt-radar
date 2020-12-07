@@ -1,4 +1,4 @@
-import { isNull, findIndex } from 'lodash';
+import { isNull } from 'lodash';
 import {
   GAIT_ID,
   STRIDE_LENGTH_ID,

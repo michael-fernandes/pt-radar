@@ -5,11 +5,9 @@ import PropTypes from 'prop-types';
 
 import { addDimension } from '../store/actions';
 import { Input, Button } from 'antd';
-import { getDimensionData } from '../store/selectors';
  
 function SingleInput({ label, type, unit, score, suffix = "" }) {
   const dispatch = useDispatch();
-  const valval = useSelector((type, label) => getDimensionData(type, label));
 
   const [showInput, setInputVisibility] = useState(score !== false);
   const storeInput = useCallback(

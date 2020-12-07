@@ -1,5 +1,3 @@
-import { isNull } from 'lodash';
-
 /* eslint-disable import/prefer-default-export */
 import { createAction } from 'redux-actions';
 import {

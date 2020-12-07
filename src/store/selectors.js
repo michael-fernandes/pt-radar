@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { shapeData } from '../util';
-import { get, union, keys } from 'lodash';
+import { isEmpty, keys, get, union } from 'lodash';
 import {
   GAIT_ID,
   STRIDE_LENGTH_ID,
@@ -51,6 +51,11 @@ export const getLabels = createSelector(
   (pre, post) => sortLabelsByOrder(pre, post)
 );
 
+export const getSession = createSelector(
+  (state) => get(state, ['session', 'session'], {}),
+  (session) => session,
+)
+
 export const getSessionData = createSelector(
   getPreData,
   getPostData,
@@ -58,9 +63,8 @@ export const getSessionData = createSelector(
   (session) => shapeData(session === 'Post' ? getPostData : getPreData),
 )
 
-export const getDimensionData =( sesh, dim) => {
-  return createSelector(
-    state => get(state, ['session', `${sesh === "POST_DIMENSION" ? 'pre' : 'post'}`, dim], 0),
-    (val) => console.log(val),
-  );
-}
+export const getEmptyData = createSelector(
+  getPreData,
+  getPostData,
+  (pre, post) => isEmpty({...post, ...pre}),
+);

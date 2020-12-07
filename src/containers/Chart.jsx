@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useMeasure } from "react-use";
 import { ChartArea } from '../components/custom/chart';
-import RadarChart from '../components/charts/RadarChart';
+import RadarChart from './RadarChart';
+import NoData from '../ui/NoData';
+import { getEmptyData } from '../store/selectors';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
 // import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
@@ -25,14 +28,16 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 
 export default function Chart() {
   const [ref, { width, height }] = useMeasure();
-
-  // const [index, ] = useState(0);
+  const enteredData = useSelector(getEmptyData)
 
   return (
     <div ref={ref} className="single-chart-wrapper">
       <div className="chart-wrapper">
         <h2>Physio Map</h2>
-        <RadarChart width={width} height={height} className="single-chart-chart" />
+        { enteredData 
+          ? <NoData />
+          : <RadarChart width={width} height={height} className="single-chart-chart" />
+        }
         {/* <ChartArea width={width} height={height} /> */}
       </div>
     </div>

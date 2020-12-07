@@ -5,12 +5,10 @@ import PropTypes from 'prop-types';
 
 import { addDimension } from '../store/actions';
 import { Input, Button } from 'antd';
-import { getDimensionData } from '../store/selectors';
  
 function SingleInput({ label, type, unit, score, suffix = "" }) {
   const dispatch = useDispatch();
-  const valval = useSelector((type, label) => getDimensionData(type, label));
-  console.log(suffix);
+
   const [showInput, setInputVisibility] = useState(score !== false);
   const storeInput = useCallback(
     (dimension, value) => {
@@ -24,8 +22,6 @@ function SingleInput({ label, type, unit, score, suffix = "" }) {
         ? <Button size="small" onClick={() => setInputVisibility()}>Score</Button>
         : <Input onChange={(e) => storeInput(label, e.target.value)} className="input-input" size='small' placeholder={unit} suffix={<span style={{color:'#BFBFBF'}}>{`${suffix} / 5`}</span>}></Input>
       }
-
-      {/* {convert && <span>Conversion: {convert('')}</span>} */}
     </div>
   )
 }

@@ -51,6 +51,11 @@ export const getLabels = createSelector(
   (pre, post) => sortLabelsByOrder(pre, post)
 );
 
+export const getSession = createSelector(
+  (state) => get(state, ['session', 'session'], {}),
+  (session) => session,
+)
+
 export const getSessionData = createSelector(
   getPreData,
   getPostData,

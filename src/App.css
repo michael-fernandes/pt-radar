@@ -5,11 +5,37 @@
 
 body {
   overflow-x: hidden;
+  position: relative;
 }
 
 h2 {
   text-align: center;
 }
+
+/* drawer */
+.dragg-up-button {
+  background: white;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  text-align: center;
+  padding: 4px;
+}
+
+.scroll-button-wrapper {
+  padding: 10px;
+}
+
+.data-entry-menu {
+  background: white;
+  border-radius: 8px 8px 0px 0px;
+  bottom: 0px;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
+  height: 80vh;
+  width: 100vw;
+  position: absolute;
+}
+
 
 /**** data Entry *****/
 .data-entry {
@@ -54,7 +80,6 @@ h3 {
 
 .chart-wrapper {
   height: 500px;
-  border: 2px solid orange;
 }
 
 .chart-chart {

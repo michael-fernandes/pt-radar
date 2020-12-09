@@ -3,9 +3,12 @@ import { useSelector } from 'react-redux';
 import { useMeasure } from "react-use";
 import { ChartArea } from '../components/custom/chart';
 import RadarChart from './RadarChart';
-import NoData from '../ui/NoData';
+import NoData from '../components/ui/NoData';
 import { getEmptyData } from '../store/selectors';
 import 'pure-react-carousel/dist/react-carousel.es.css';
+import { RadarChartOutlined } from '@ant-design/icons';
+import SwipeableViews from 'react-swipeable-views';
+
 
 // import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
 // import Pagination from 'docs/src/modules/components/Pagination';
@@ -31,15 +34,23 @@ export default function Chart() {
   const enteredData = useSelector(getEmptyData)
 
   return (
-    <div ref={ref} className="single-chart-wrapper">
-      <div className="chart-wrapper">
-        <h2>Physio Map</h2>
-        { enteredData 
-          ? <NoData />
-          : <RadarChart width={width} height={height} className="single-chart-chart" />
-        }
-        {/* <ChartArea width={width} height={height} /> */}
+    <>
+      <div ref={ref} className="single-chart-wrapper">
+        <div className="chart-wrapper">
+          <h2>Physio Map</h2>
+          { enteredData 
+            ? <NoData />
+            : <ChartArea width={width} height={height} />
+            // : (<SwipeableViews>
+            //     <RadarChart width={width} height={height} className="single-chart-chart" />
+            //     <ChartArea width={width} height={height} />   
+            // </SwipeableViews>)
+          }
+        </div>
       </div>
-    </div>
+      <div>
+        <RadarChartOutlined />
+      </div>
+    </>
   )
 }

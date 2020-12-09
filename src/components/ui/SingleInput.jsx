@@ -3,13 +3,14 @@ import { isNull } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { addDimension } from '../store/actions';
+import { addDimension } from '../../store/actions';
 import { Input, Button } from 'antd';
  
 function SingleInput({ label, type, unit, score, suffix = "" }) {
   const dispatch = useDispatch();
 
   const [showInput, setInputVisibility] = useState(score !== false);
+  
   const storeInput = useCallback(
     (dimension, value) => {
       dispatch(addDimension(type, dimension, value));
@@ -18,10 +19,16 @@ function SingleInput({ label, type, unit, score, suffix = "" }) {
     return (
     <div className="input-wrapper">
       <div className="input-label">{label}:</div>
-      {showInput
-        ? <Button size="small" onClick={() => setInputVisibility()}>Score</Button>
-        : <Input onChange={(e) => storeInput(label, e.target.value)} className="input-input" size='small' placeholder={unit} suffix={<span style={{color:'#BFBFBF'}}>{`${suffix} / 5`}</span>}></Input>
-      }
+      <div className="input">
+        {showInput
+          ? <Button size="small" onClick={() => setInputVisibility()}>Score</Button>
+          : <Input onChange={(e) => storeInput(label, e.target.value)} 
+              className="input-input" 
+              size='small' 
+              placeholder={unit} 
+              suffix={<span style={{color:'#BFBFBF'}}>{`${suffix}/5`}</span>} />
+        }
+      </div>
     </div>
   )
 }

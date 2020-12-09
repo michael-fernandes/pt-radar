@@ -17,6 +17,17 @@ export const TURN_VELOCITY_ID = '360-Turn Peak Velocity';
 export const FTSTS_TIME = 'FTSTS Time';
 export const SIT_TO_STAND_DURATION = 'Sit to Stand Duration';
 
+export const NAME_LOOKUP = {
+  [GAIT_ID]: 'Gait Speed',
+  [STRIDE_LENGTH_ID]: 'Stride Length',
+  [BALANCE_ID]:'90-sec Balance',
+  [SWAY_AREA_ID]: 'Postural Sway Area',
+  [SWAY_RMS_ID]: 'Postural Sway RMS',  
+  [TURN_DURATION_ID]: 'Turn Duration',
+  [TURN_VELOCITY_ID]: 'Turn Peak Velocity',  
+  [FTSTS_TIME]: 'FTSTS Time',
+  [SIT_TO_STAND_DURATION]: 'Sit to Stand',
+}
 
 export const AGE = 'Age';
 export const COGNITIVE_STATUS = 'Cognitive Status';

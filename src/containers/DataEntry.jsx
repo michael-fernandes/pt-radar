@@ -1,14 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Drawer from 'react-drag-drawer'
+import Drawer from 'react-drag-drawer';
 
 import { setSession } from '../store/actions';
 
 import { Tabs, Button } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 
-import DemographicsInput from '../components/DemographicsInput';
-import ScrollButton from '../ui/ScrollButton';
+import {ScrollButton} from '../components/ui';
 import Session from './Session';
 import { getPreData, getPostData, getSession } from '../store/selectors';
 
@@ -40,7 +39,7 @@ function DataInput() {
     (key) => dispatch(setSession(key)),
     [dispatch],
   );
-
+  
   return (
     <div className="dragg-up-button">
       <ScrollButton onClick={handleToggle} text="Enter Data" onTabChange={handleTab}  session={session} />

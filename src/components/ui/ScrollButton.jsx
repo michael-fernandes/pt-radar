@@ -7,7 +7,7 @@ function ScrollButton({onClick, onTabChange, text, session}) {
   const toggleDraw = (
     <Button onClick={onClick} type="link"> {text} </Button>
   )
-  console.log(session);
+
   return (
     <div className="scroll-button-wrapper">
       <Tabs 

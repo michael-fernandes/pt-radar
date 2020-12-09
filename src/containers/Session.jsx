@@ -1,10 +1,7 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, {Fragment } from 'react';
 import PropTypes from 'prop-types';
-import SingleInput from '../ui/SingleInput';
+import { SingleInput } from '../components/ui';
 import Domain from './Domain';
-import { getSessionData } from '../store/selectors';
-// import SingleDropdown from '../ui/SingleDropdown';
 import {
   GAIT_ID,
   STRIDE_LENGTH_ID,
@@ -28,29 +25,28 @@ function simpleConvert(text) {
 
 export default function SessionInput({ sessionType, data = {} }) {
   return (
-    <>
-      <Domain label="Gait">
+    <Fragment key={sessionType}>
+      <Domain label="GAIT">
         <SingleInput label={GAIT_ID} convert={simpleConvert} type={sessionType} score={true} unit={SPEED} suffix={data[GAIT_ID]} />
         <SingleInput label={STRIDE_LENGTH_ID} convert={simpleConvert} type={sessionType} score={true} unit={DISTANCE} suffix={data[STRIDE_LENGTH_ID]} />
       </Domain>
 
-      <Domain label="Balance">
+      <Domain label="BALANCE">
         <SingleInput label={BALANCE_ID} convert={simpleConvert} type={sessionType} score={true} unit={TIME} suffix={data[BALANCE_ID]} />
         <SingleInput label={SWAY_AREA_ID} convert={simpleConvert} type={sessionType} score={true} unit={DEVICE_UNITS} suffix={data[SWAY_AREA_ID]} />
         <SingleInput label={SWAY_RMS_ID} convert={simpleConvert} type={sessionType} score={true} unit={DEVICE_UNITS} suffix={data[SWAY_RMS_ID]} />
       </Domain>
 
-      <Domain label="turns">
+      <Domain label="TURNS">
         <SingleInput label={TURN_DURATION_ID} convert={simpleConvert} type={sessionType} score={true} unit={TIME} suffix={data[TURN_DURATION_ID]} />
         <SingleInput label={TURN_VELOCITY_ID} convert={simpleConvert} type={sessionType} score={true} unit={SPEED} suffix={data[TURN_VELOCITY_ID]} />
       </Domain>
 
-      <Domain label="Sit to Stand">
+      <Domain label="SIT TO STAND">
         <SingleInput label={FTSTS_TIME} convert={simpleConvert} type={sessionType} score={true} unit={TIME} suffix={data[FTSTS_TIME]} />
         <SingleInput label={SIT_TO_STAND_DURATION} convert={simpleConvert} type={sessionType} score={true} unit={TIME} suffix={data[SIT_TO_STAND_DURATION]} />
       </Domain>
-
-    </>
+    </Fragment>
   );
 }
 

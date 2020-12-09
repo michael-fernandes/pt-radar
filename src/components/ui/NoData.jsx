@@ -1,5 +1,5 @@
 import React from 'react';
-import img from '../resources/EnterData.png';
+import img from '../../resources/EnterData.png';
 
 function NoData(props) {
   return (

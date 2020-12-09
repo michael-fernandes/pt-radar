@@ -11,6 +11,7 @@ import {
   TURN_VELOCITY_ID,
   FTSTS_TIME,
   SIT_TO_STAND_DURATION,
+  NAME_LOOKUP,
 } from '../resources/constants';
 
 const labelOrder = [
@@ -26,7 +27,7 @@ const labelOrder = [
 ];
 
 function sortLabelsByOrder(pre, post) {
-  const labels = union(keys(pre), keys(post));
+  const labels = union(keys(pre), keys(post)).map(d => NAME_LOOKUP[d]);
   return labels.sort((a, b) => labelOrder.find(() => a) < labelOrder.find(() => b));
 }
 
@@ -60,7 +61,7 @@ export const getSessionData = createSelector(
   getPreData,
   getPostData,
   (state) => get(state, ['session', 'session'], {}),
-  (session) => shapeData(session === 'Post' ? getPostData : getPreData),
+  (pre, post, session) => shapeData(session === 'Post' ? post : pre),
 )
 
 export const getEmptyData = createSelector(

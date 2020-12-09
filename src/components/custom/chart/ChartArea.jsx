@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { arc, min, select } from 'd3';
 import { PAD_ANGLE, SPACE_BETWEEN_ARCS, COLORS, INNER_RADIUS } from '../../../util';
-import {  getSessionData } from '../../../store/selectors';
+import {  getSessionData, getPreData } from '../../../store/selectors';
 
 const pi = Math.PI;
 
@@ -25,6 +25,8 @@ function ChartArea({ width, height}) {
   const textRef = useRef();
   
   const data = useSelector(getSessionData);
+  const preData = useSelector(getPreData);
+
   const slices = data.labels.length;
   const partitions = 6; 
 

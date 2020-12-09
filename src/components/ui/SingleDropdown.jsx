@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { addDimension } from '../store/actions';
+import { addDimension } from '../../store/actions';
 import { Button, Dropdown, Menu } from 'antd';
 
 import { DownOutlined } from '@ant-design/icons';

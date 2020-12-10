@@ -67,8 +67,6 @@ h2 {
   
   .session-input > .domain > .input-wrapper {
     display: block;
-    width: 150px;
-    max-width: 150px;
   }
 }
 
@@ -94,6 +92,8 @@ h2 {
 .input-input {
   display: block;
   flex: 1;
+  width: 150px;
+    max-width: 150px;
 }
 
 h3 {

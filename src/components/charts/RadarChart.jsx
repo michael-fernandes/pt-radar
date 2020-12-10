@@ -22,13 +22,17 @@ const genSettings = (color, labels, data, label) => {
     data: getData(label, data, labels),
   }
 }
+const chartMargin = {
+  y: 30,
+  x: 10,
+};
 
 const colors = [
   '0, 63, 92',
   '88, 0, 181',
 ];
 
-export default function RadarChart() {
+export default function RadarChart({ width, height }) {
   const preData = useSelector(getPreData);
   const postData = useSelector(getPostData);
   const labels = useSelector(getLabels);
@@ -43,7 +47,7 @@ export default function RadarChart() {
 
   return (
     <div className="chart">
-      <Radar data={data} width={10} height={9} />
+      <Radar data={data} width={width - chartMargin.x} height={height - chartMargin.y} options={{ maintainAspectRatio: false }} />
     </div >
   );
 }

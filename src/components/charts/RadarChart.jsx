@@ -46,9 +46,10 @@ export default function RadarChart({ width, height }) {
   }
 
   return (
-    <div className="chart">
-      <Radar data={data} width={width - chartMargin.x} height={height - chartMargin.y} options={{ maintainAspectRatio: false }} />
-    </div >
-  );
+    <Radar
+      data={data}
+      width={width - chartMargin.x}
+      height={height - chartMargin.y}
+      options={{ maintainAspectRatio: false }} />);
 }
 

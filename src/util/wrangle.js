@@ -1,6 +1,8 @@
 import { max } from 'd3';
+import { keys, union } from 'lodash';
+import { NAME_LOOKUP, LABEL_ORDER } from '../resources/constants';
 
-export function generativeData({levels, dims, }) {
+export function generativeData({ levels, dims, }) {
   const dataSet = [];
   const labels = []
   let slice = 0;
@@ -16,24 +18,28 @@ export function generativeData({levels, dims, }) {
       })
     }
 
-    labels.push({
-      name: d,
-      slice,
-    })
-    
+    labels.push({ name: d, slice })
     slice += 1;
   });
-  console.log(levels, dims);
+
   return { data: dataSet, labels };
 }
 
-export const multiply = (vals) => vals.reduce((a,b) => a * b);
+export const multiply = (vals) => vals.reduce((a, b) => a * b);
 
-export function shapeData(inputData){
+export function shapeData(inputData) {
   console.log(inputData);
   return generativeData({
     dims: inputData,
-    partitions: Object.keys(inputData).length - 1, 
+    partitions: Object.keys(inputData).length - 1,
     levels: max(Object.values(inputData)),
   })
+}
+
+
+export function sortLabelsByOrder(pre, post) {
+  return union(keys(pre), keys(post))
+    .map(d => NAME_LOOKUP[d])
+    .sort((a, b) => LABEL_ORDER.find(() => a) < LABEL_ORDER.find(() => b))
+    .filter((d) => d != null);
 }

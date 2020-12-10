@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-import { shapeData } from '../util';
-import { isEmpty, keys, get, union } from 'lodash';
+import { shapeData, sortLabelsByOrder } from '../util';
+import { isEmpty, get } from 'lodash';
 import {
   GAIT_ID,
   STRIDE_LENGTH_ID,
@@ -11,27 +11,7 @@ import {
   TURN_VELOCITY_ID,
   FTSTS_TIME,
   SIT_TO_STAND_DURATION,
-  NAME_LOOKUP,
 } from '../resources/constants';
-
-const labelOrder = [
-  GAIT_ID,
-  STRIDE_LENGTH_ID,
-  BALANCE_ID,
-  SWAY_AREA_ID,
-  SWAY_RMS_ID,
-  TURN_DURATION_ID,
-  TURN_VELOCITY_ID,
-  FTSTS_TIME,
-  SIT_TO_STAND_DURATION,
-];
-
-function sortLabelsByOrder(pre, post) {
-  return union(keys(pre), keys(post))
-    .map(d => NAME_LOOKUP[d])
-    .sort((a, b) => labelOrder.find(() => a) < labelOrder.find(() => b))
-    .filter((d) => d != null);
-}
 
 export const getPreData = createSelector(
   (state) => get(state, ['pre'], {}),

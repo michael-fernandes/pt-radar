@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useMeasure } from "react-use";
 import { ChartArea } from '../components/custom/chart';
-import RadarChart from './RadarChart';
+import RadarChart from '../components/charts/RadarChart';
 import NoData from '../components/ui/NoData';
 import { getEmptyData } from '../store/selectors';
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -38,9 +38,9 @@ export default function Chart() {
       <div ref={ref} className="single-chart-wrapper">
         <div className="chart-wrapper">
           <h2>Physio Map</h2>
-          { enteredData 
+          {enteredData
             ? <NoData />
-            : <ChartArea width={width} height={height} />
+            : <RadarChart width={width} height={height} className="single-chart-chart" />
             // : (<SwipeableViews>
             //     <RadarChart width={width} height={height} className="single-chart-chart" />
             //     <ChartArea width={width} height={height} />   
@@ -48,9 +48,9 @@ export default function Chart() {
           }
         </div>
       </div>
-      <div>
+      {/* <div>
         <RadarChartOutlined />
-      </div>
+      </div> */}
     </>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 // import { Radar } from 'react-chartjs-2';
 import Chart from "react-apexcharts";
 import { useSelector } from 'react-redux';
-import { getPreData, getPostData, getLabels } from '../../store/selectors';
+import { getPreData, getPostData, getLabels } from '../../../store/selectors';
 
 function getData(data, labels) {
   const dataSlice = []

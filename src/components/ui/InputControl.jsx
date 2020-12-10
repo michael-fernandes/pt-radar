@@ -1,41 +1,41 @@
 import React, { useState, useCallback } from 'react';
-import { isNull } from 'lodash';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { addDimension } from '../../store/actions';
 import { Input, Button } from 'antd';
- 
-function SingleInput({ label, type, unit, score, suffix = "" }) {
+
+function InputControl({ defaultValue, label, type, unit, score = true, suffix = "" }) {
   const dispatch = useDispatch();
 
   const [showInput, setInputVisibility] = useState(score !== false);
-  
+
   const storeInput = useCallback(
     (dimension, value) => {
       dispatch(addDimension(type, dimension, value));
     }, [dispatch, type]);
 
-    return (
+  return (
     <div className="input-wrapper">
       <div className="input-label">{label}:</div>
       <div className="input">
-        {showInput
+        {showInput && !defaultValue
           ? <Button size="small" onClick={() => setInputVisibility()}>Score</Button>
-          : <Input onChange={(e) => storeInput(label, e.target.value)} 
-              className="input-input" 
-              size='small' 
-              placeholder={unit} 
-              suffix={<span style={{color:'#BFBFBF'}}>{`${suffix}/5`}</span>} />
+          : <Input onChange={(e) => storeInput(label, e.target.value)}
+            defaultValue={defaultValue}
+            className="input-input"
+            size='small'
+            placeholder={unit}
+            suffix={<span style={{ color: '#BFBFBF' }}>{`${suffix}/5`}</span>} />
         }
       </div>
     </div>
   )
 }
 
-export default SingleInput;
+export default InputControl;
 
-SingleInput.propTypes = {
+InputControl.propTypes = {
   label: PropTypes.string,
   conversionFunction: PropTypes.func,
   update: PropTypes.func,
@@ -45,10 +45,9 @@ SingleInput.propTypes = {
   options: PropTypes.array,
 }
 
-SingleInput.defaultProps = {
+InputControl.defaultProps = {
   label: 'dimension',
   update: () => '',
   placeholder: '',
-  score: false,
   options: [],
 }

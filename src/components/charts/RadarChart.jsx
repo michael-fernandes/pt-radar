@@ -1,7 +1,7 @@
 import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
-import { getPreData, getPostData, getLabels } from '../store/selectors';
+import { getPreData, getPostData, getLabels } from '../../store/selectors';
 
 function getData(label, data, labels) {
   const dataSlice = []
@@ -43,7 +43,7 @@ export default function RadarChart() {
 
   return (
     <div className="chart">
-      <Radar data={data} width={4} height={3}/>
+      <Radar data={data} width={10} height={9} />
     </div >
   );
 }

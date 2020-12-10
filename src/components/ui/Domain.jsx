@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Domain({label, children}) {
+function Domain({ label, children }) {
   return (
     <div className="domain">
-      <h3>{label}</h3>
+      <h4>{label}</h4>
       {children}
     </div>
   );

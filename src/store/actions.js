@@ -12,16 +12,15 @@ import {
   binByDimension
 } from '../util/bin';
 
-export const addDimension = (session, dimension, value) => {
-  console.log(dimension);
-  const validatedValue = binByDimension[dimension](value);
+export const addDimension = (session, dimension, input) => {
+  const value = binByDimension[dimension](input);
   switch (session) {
     case PRE_DIMENSION:
-      return preDimension(dimension, validatedValue);
+      return preDimension(dimension, input, value);
     case POST_DIMENSION:
-      return postDimension(dimension, validatedValue);
+      return postDimension(dimension, input, value);
     case DEMOGRAPHICS_DIMENSION:
-      return demographicDimension(dimension, validatedValue);
+      return demographicDimension(dimension);
     default:
       return {};
   }
@@ -29,22 +28,24 @@ export const addDimension = (session, dimension, value) => {
 
 const demographicDimension = createAction(
   DEMOGRAPHICS_DIMENSION,
-  (dimension, value) => ({
-    [dimension]: value,
+  (dimension, input, value) => ({
+    [dimension]: input,
   })
 );
 
 const preDimension = createAction(
   PRE_DIMENSION,
-  (dimension, value) => ({
+  (dimension, input, value) => ({
     [dimension]: value,
+    [`${dimension}_input`]: input,
   })
 );
 
 const postDimension = createAction(
   POST_DIMENSION,
-  (dimension, value) => ({
+  (dimension, input, value) => ({
     [dimension]: value,
+    [`${dimension}_input`]: input,
   })
 );
 
@@ -58,7 +59,7 @@ export const scoreDimension = createAction(
 
 export const setSession = createAction(
   SESSION,
-  (key) =>({session:key})
+  (key) => ({ session: key })
 );
 
 

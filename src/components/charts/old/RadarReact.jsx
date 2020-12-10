@@ -9,7 +9,7 @@ import {
 } from 'recharts';
 
 import { useSelector } from 'react-redux';
-import { getPreData, getPostData, getLabels } from '../../store/selectors';
+import { getPreData, getPostData, getLabels } from '../../../store/selectors';
 
 function generateData(pre, post, labels) {
   return labels.map(d => ({

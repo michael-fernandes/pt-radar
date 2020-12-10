@@ -1,25 +1,10 @@
 import React from 'react';
-import { Tabs, Button } from 'antd';
+import { Button } from 'antd';
 
-const { TabPane } = Tabs;
-
-function ScrollButton({onClick, onTabChange, text, session}) {
-  const toggleDraw = (
-    <Button onClick={onClick} type="link"> {text} </Button>
-  )
-
+function ScrollButton({ onClick, text }) {
   return (
     <div className="scroll-button-wrapper">
-      <Tabs 
-        tabBarExtraContent={toggleDraw} 
-        onTabClick={onTabChange}
-        tabBarStyle={{padding: 0, margin: 0}} 
-        activeKey={session} >
-        <TabPane tab="Pre" key='Pre' >
-        </TabPane>
-        <TabPane tab="Post" key='Post'>
-        </TabPane>
-      </Tabs>
+      <Button onClick={onClick} type="link"> {text} </Button>
     </div>
   );
 }

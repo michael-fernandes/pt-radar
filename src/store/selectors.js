@@ -27,8 +27,10 @@ const labelOrder = [
 ];
 
 function sortLabelsByOrder(pre, post) {
-  const labels = union(keys(pre), keys(post)).map(d => NAME_LOOKUP[d]);
-  return labels.sort((a, b) => labelOrder.find(() => a) < labelOrder.find(() => b));
+  return union(keys(pre), keys(post))
+    .map(d => NAME_LOOKUP[d])
+    .sort((a, b) => labelOrder.find(() => a) < labelOrder.find(() => b))
+    .filter((d) => d != null);
 }
 
 export const getPreData = createSelector(
@@ -67,5 +69,5 @@ export const getSessionData = createSelector(
 export const getEmptyData = createSelector(
   getPreData,
   getPostData,
-  (pre, post) => isEmpty({...post, ...pre}),
+  (pre, post) => isEmpty({ ...post, ...pre }),
 );

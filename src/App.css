@@ -27,7 +27,8 @@ h2 {
 
 /* drawer */
 .dragg-up-button {
-  box-shadow: rgba(0,0,0,0.14) 0px 0 8px ;
+  box-shadow: -30px -10px 10px -16px rgba(0,0,0,0.75), 30px -10px 10px -16px rgba(0,0,0,0.75);
+  border-radius: 8px 8px 0px 0px;
   background: white;
   bottom: 0px;
   padding: 4px;
@@ -38,6 +39,7 @@ h2 {
 
 .scroll-button-wrapper {
   padding: 10px;
+  text-align: center;
 }
 
 .data-entry-menu {
@@ -56,6 +58,20 @@ h2 {
 .data-entry {
   margin: 10px;
 }
+
+@media (min-width: 720px){
+  .session-input {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .session-input > .domain > .input-wrapper {
+    display: block;
+    width: 150px;
+    max-width: 150px;
+  }
+}
+
 .domain {
   max-width: 375px;
   margin: 0 auto 10px auto;
@@ -94,6 +110,9 @@ h3 {
   fill:black;
 }
 
+.chart {
+  max-height: 500px;
+}
 .chart-wrapper {
   height: 500px;
 }

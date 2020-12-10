@@ -20,11 +20,11 @@ export const SIT_TO_STAND_DURATION = 'Sit to Stand Duration';
 export const NAME_LOOKUP = {
   [GAIT_ID]: 'Gait Speed',
   [STRIDE_LENGTH_ID]: 'Stride Length',
-  [BALANCE_ID]:'90-sec Balance',
+  [BALANCE_ID]: '90-sec Balance',
   [SWAY_AREA_ID]: 'Postural Sway Area',
-  [SWAY_RMS_ID]: 'Postural Sway RMS',  
+  [SWAY_RMS_ID]: 'Postural Sway RMS',
   [TURN_DURATION_ID]: 'Turn Duration',
-  [TURN_VELOCITY_ID]: 'Turn Peak Velocity',  
+  [TURN_VELOCITY_ID]: 'Turn Peak Velocity',
   [FTSTS_TIME]: 'FTSTS Time',
   [SIT_TO_STAND_DURATION]: 'Sit to Stand',
 }
@@ -55,4 +55,16 @@ export const SCORE_DIMENSION = 'SCORE_DIMENSION';
 // Session
 export const SESSION = 'SESSION';
 
+
+export const LABEL_ORDER = [
+  GAIT_ID,
+  STRIDE_LENGTH_ID,
+  BALANCE_ID,
+  SWAY_AREA_ID,
+  SWAY_RMS_ID,
+  TURN_DURATION_ID,
+  TURN_VELOCITY_ID,
+  FTSTS_TIME,
+  SIT_TO_STAND_DURATION,
+];
 

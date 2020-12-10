@@ -1,24 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
+import Chart from './containers/Chart';
+import DataEntry from './containers/DataEntry';
 import './App.css';
+import { useMeasure } from 'react-use'
+
+const TABLE_WIDTH = 750;
 
 function App() {
+  const [ref, { width = 0 }] = useMeasure();
+  const isMobile = width < TABLE_WIDTH;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div ref={ref} className="App">
+      <Chart />
+      <DataEntry isMobile={isMobile} />
     </div>
   );
 }

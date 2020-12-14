@@ -1,5 +1,5 @@
 import { max } from 'd3';
-import { keys, union } from 'lodash';
+import { keys, union, reduce } from 'lodash';
 import { NAME_LOOKUP, LABEL_ORDER } from '../resources/constants';
 
 export function generativeData({ levels, dims, }) {
@@ -14,12 +14,13 @@ export function generativeData({ levels, dims, }) {
         name: d,
         level: i,
         active: active,
-        ket: `${d + i + active}`
+        key: `${d + i + active}`
       })
     }
 
-    labels.push({ name: d, slice })
+    labels.push({ name: NAME_LOOKUP[d], slice })
     slice += 1;
+
   });
 
   return { data: dataSet, labels };
@@ -28,11 +29,18 @@ export function generativeData({ levels, dims, }) {
 export const multiply = (vals) => vals.reduce((a, b) => a * b);
 
 export function shapeData(inputData) {
-  console.log(inputData);
+  const filteredInput = reduce(keys(inputData), (result, value) => {
+    if (NAME_LOOKUP[value] !== undefined) {
+      result[value] = inputData[value];
+    }
+
+    return result;
+  }, {});
+
   return generativeData({
-    dims: inputData,
-    partitions: Object.keys(inputData).length - 1,
-    levels: max(Object.values(inputData)),
+    dims: filteredInput,
+    partitions: Object.keys(filteredInput).length - 1,
+    levels: 5,
   })
 }
 

@@ -68,3 +68,5 @@ export const LABEL_ORDER = [
   SIT_TO_STAND_DURATION,
 ];
 
+export const RADAR = 'radar';
+export const CONCENTRIC = 'concentric'

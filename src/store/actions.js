@@ -28,7 +28,7 @@ export const addDimension = (session, dimension, input) => {
 
 const demographicDimension = createAction(
   DEMOGRAPHICS_DIMENSION,
-  (dimension, input, value) => ({
+  (dimension, input) => ({
     [dimension]: input,
   })
 );

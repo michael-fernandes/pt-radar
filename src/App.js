@@ -1,5 +1,5 @@
 import React from 'react';
-import Chart from './containers/Chart';
+import Chart from './containers/Display';
 import DataEntry from './containers/DataEntry';
 import './App.css';
 import { useMeasure } from 'react-use'

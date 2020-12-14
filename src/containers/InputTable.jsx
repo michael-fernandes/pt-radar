@@ -28,7 +28,6 @@ function InputTable({ isMobile }) {
   return (
     <Tabs
       onTabClick={handleTab}
-      // tabBarStyle={{ padding: 0, margin: 0 }}
       activeKey={session} >
       <TabPane tab="Pre" key='Pre' >
         <Session sessionType={PRE_DIMENSION} data={preData} isMobile={isMobile} />

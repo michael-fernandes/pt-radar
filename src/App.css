@@ -25,7 +25,7 @@ h2 {
 }
 
 /* drawer */
-.dragg-up-button {
+.drag-up-button {
   box-shadow: -30px -10px 10px -16px rgba(0,0,0,0.75), 30px -10px 10px -16px rgba(0,0,0,0.75);
   border-radius: 8px 8px 0px 0px;
   background: white;
@@ -123,13 +123,18 @@ h3 {
   border: 2px solid white;
   max-height: 500px;
   height: 500px;
+  display: flex; 
+  flex-basis: 1;
+  position: relative;
 }
 
 .chart-buttons {
-  position: relative;
+  position: absolute;
   z-index: 10;
   margin: auto;
   display: flex;
+  bottom: 0px;
+  right: 0px;
   justify-content: center;
 }
 

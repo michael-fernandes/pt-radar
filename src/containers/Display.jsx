@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
-import { Button } from 'antd';
 import { useSelector } from 'react-redux';
 import { useMeasure } from "react-use";
 import { ChartArea } from '../components/custom/chart';
+import ChartButtons from './ChartButtons'
 import RadarChart from '../components/charts/RadarChart';
 import NoData from '../components/ui/NoData';
 import { getEmptyData } from '../store/selectors';
-import 'pure-react-carousel/dist/react-carousel.es.css';
-import { RadarChartOutlined, HeatMapOutlined } from '@ant-design/icons';
-import SwipeableViews from 'react-swipeable-views';
 
-const RADAR = 'radar';
-const CONCENTRIC = 'concentric'
+import { RADAR, CONCENTRIC } from '../resources/constants';
 
 const charts = {
   [RADAR]: RadarChart,
+  [RADAR]: ChartArea,
   [CONCENTRIC]: ChartArea,
 }
 
@@ -32,13 +29,13 @@ export default function Chart() {
         <div className="chart-wrapper">
           {enteredData
             ? <NoData />
-            : <ChartComponent width={width} height={height} className="single-chart-chart" />
+            : <div className="chart">
+              <ChartComponent width={width} height={height} className="single-chart-chart" />
+              <ChartButtons setView={setView} />
+            </div>
           }
         </div>
       </div>
-      {/* <div>
-        <RadarChartOutlined />
-      </div> */}
     </>
   )
 }

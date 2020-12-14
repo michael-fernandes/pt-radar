@@ -7,7 +7,7 @@ import {
   COGNITIVE_STATUS,
   SEX,
   DEMOGRAPHICS_DIMENSION,
-} from '../resources/constants';
+} from '../../resources/constants';
 
 export default function DemographicsInput({ setVisibility, visible }) {
   return (

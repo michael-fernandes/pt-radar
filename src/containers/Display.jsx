@@ -11,7 +11,6 @@ import { RADAR, CONCENTRIC } from '../resources/constants';
 
 const charts = {
   [RADAR]: RadarChart,
-  [RADAR]: ChartArea,
   [CONCENTRIC]: ChartArea,
 }
 

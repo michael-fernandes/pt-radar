@@ -29,6 +29,17 @@ export const NAME_LOOKUP = {
   [SIT_TO_STAND_DURATION]: 'Sit to Stand',
 }
 
+//https://stackoverflow.com/questions/23013573/swap-key-with-value-json
+function objectFlip(obj) {
+  const ret = {};
+  Object.keys(obj).forEach(key => {
+    ret[obj[key]] = key;
+  });
+  return ret;
+}
+
+export const SHORT_NAME_REVERSE = objectFlip(NAME_LOOKUP);
+
 export const AGE = 'Age';
 export const COGNITIVE_STATUS = 'Cognitive Status';
 export const SEX = 'Sex';

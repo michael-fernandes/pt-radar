@@ -87,7 +87,6 @@ h2 {
 }
 
 .input-input {
-  display: block;
   flex: 1;
   width: 150px;
   max-width: 150px;

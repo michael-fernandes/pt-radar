@@ -27,7 +27,19 @@ export const NAME_LOOKUP = {
   [TURN_VELOCITY_ID]: 'Turn Peak Velocity',
   [FTSTS_TIME]: 'FTSTS Time',
   [SIT_TO_STAND_DURATION]: 'Sit to Stand',
-}
+};
+
+export const LABEL_ORDER = [
+  GAIT_ID,
+  STRIDE_LENGTH_ID,
+  BALANCE_ID,
+  SWAY_AREA_ID,
+  SWAY_RMS_ID,
+  TURN_DURATION_ID,
+  TURN_VELOCITY_ID,
+  FTSTS_TIME,
+  SIT_TO_STAND_DURATION,
+];
 
 //https://stackoverflow.com/questions/23013573/swap-key-with-value-json
 function objectFlip(obj) {
@@ -65,19 +77,6 @@ export const SCORE_DIMENSION = 'SCORE_DIMENSION';
 
 // Session
 export const SESSION = 'SESSION';
-
-
-export const LABEL_ORDER = [
-  GAIT_ID,
-  STRIDE_LENGTH_ID,
-  BALANCE_ID,
-  SWAY_AREA_ID,
-  SWAY_RMS_ID,
-  TURN_DURATION_ID,
-  TURN_VELOCITY_ID,
-  FTSTS_TIME,
-  SIT_TO_STAND_DURATION,
-];
 
 export const RADAR = 'radar';
 export const CONCENTRIC = 'concentric'

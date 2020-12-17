@@ -37,7 +37,7 @@ export default function RadarChart({ width, height }) {
   const preData = useSelector(getPreData);
   const postData = useSelector(getPostData);
   const labels = useSelector(getLabels);
-  console.log(genSettings(colors[0], labels, preData, 'Pre'));
+
   const data = {
     labels,
     datasets: [

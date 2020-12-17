@@ -11,18 +11,19 @@ function DataEntry({ isMobile }) {
 
   return (
     isMobile
-      ? <div className="drag-up-button">
-        <ScrollButton onClick={handleToggle} text="Enter Data" />
-        <Drawer open={open} onRequestclose={handleToggle} modalElementClass={"data-entry-menu"} >
-          <ScrollButton onClick={handleToggle} text="Close Data" />
-          <div className="data-entry">
-            <InputTable isMobile={isMobile} />
-          </div>
-        </Drawer>
-      </div>
+      ? (
+        <div className="drag-up-button">
+          <ScrollButton onClick={handleToggle} text="Enter Data" />
+          <Drawer open={open} onRequestclose={handleToggle} modalElementClass="data-entry-menu">
+            <ScrollButton onClick={handleToggle} text="Close Data" />
+            <div className="data-entry">
+              <InputTable isMobile={isMobile} />
+            </div>
+          </Drawer>
+        </div>
+      )
       : <InputTable isMobile={isMobile} />
   );
 }
 
 export default DataEntry;
-

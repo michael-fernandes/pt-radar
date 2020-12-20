@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Drawer from 'react-drag-drawer';
+import { useIsMobileContext } from '../App';
 
 import { ScrollButton } from '../components/ui';
 import InputTable from './InputTable';
 
-function DataEntry({ isMobile }) {
+function DataEntry() {
   const [open, setOpen] = useState(false);
+  const isMobile = useIsMobileContext();
 
   const handleToggle = () => setOpen(!open);
 
@@ -17,12 +20,12 @@ function DataEntry({ isMobile }) {
           <Drawer open={open} onRequestclose={handleToggle} modalElementClass="data-entry-menu">
             <ScrollButton onClick={handleToggle} text="Close Data" />
             <div className="data-entry">
-              <InputTable isMobile={isMobile} />
+              <InputTable />
             </div>
           </Drawer>
         </div>
       )
-      : <InputTable isMobile={isMobile} />
+      : <InputTable />
   );
 }
 

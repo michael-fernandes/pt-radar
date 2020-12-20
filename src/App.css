@@ -1,16 +1,13 @@
-/* .carousel-image {
-  width: 100%;
-  height: 50%;
-} */
-
 body {
   overflow-x: hidden;
   position: relative;
+  color: rgba(0,0,0,0.75);  
   padding-top: 10px; /* TODO: add overall padding */
 }
 
-h2 {
+h1 {
   text-align: center;
+  color:  rgba(0,0,0,0.75);  
 }
 
 /* no data */
@@ -23,6 +20,12 @@ h2 {
 
 .no-data > img {
   padding: 10px;
+}
+
+.no-data > p {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.50);  
 }
 
 /* drawer */
@@ -51,6 +54,10 @@ h2 {
   overflow: scroll;
   position: absolute;
   width: 100vw;
+}
+
+.ant-tabs > .ant-tabs-nav {
+  padding: 0 15px;
 }
 
 /**** data Entry *****/

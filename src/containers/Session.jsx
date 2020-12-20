@@ -22,7 +22,7 @@ function simpleConvert(text) {
   return text.toUpperCase();
 }
 
-export default function SessionInput({ sessionType, isMobile, data = {} }) {
+export default function SessionInput({ sessionType, data = {} }) {
   return (
     <div className={"session-input"} >
       <Domain label="GAIT">

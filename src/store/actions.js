@@ -6,11 +6,35 @@ import {
   DEMOGRAPHICS_DIMENSION,
   SCORE_DIMENSION,
   SESSION,
+  CHART,
 } from '../resources/constants';
 
 import {
-  binByDimension
+  binByDimension,
 } from '../util/bin';
+
+const demographicDimension = createAction(
+  DEMOGRAPHICS_DIMENSION,
+  (dimension, input) => ({
+    [dimension]: input,
+  }),
+);
+
+const preDimension = createAction(
+  PRE_DIMENSION,
+  (dimension, input, value) => ({
+    [dimension]: value,
+    [`${dimension}_input`]: input,
+  }),
+);
+
+const postDimension = createAction(
+  POST_DIMENSION,
+  (dimension, input, value) => ({
+    [dimension]: value,
+    [`${dimension}_input`]: input,
+  }),
+);
 
 export const addDimension = (session, dimension, input) => {
   const value = binByDimension[dimension](input);
@@ -24,42 +48,21 @@ export const addDimension = (session, dimension, input) => {
     default:
       return {};
   }
-}
-
-const demographicDimension = createAction(
-  DEMOGRAPHICS_DIMENSION,
-  (dimension, input) => ({
-    [dimension]: input,
-  })
-);
-
-const preDimension = createAction(
-  PRE_DIMENSION,
-  (dimension, input, value) => ({
-    [dimension]: value,
-    [`${dimension}_input`]: input,
-  })
-);
-
-const postDimension = createAction(
-  POST_DIMENSION,
-  (dimension, input, value) => ({
-    [dimension]: value,
-    [`${dimension}_input`]: input,
-  })
-);
-
+};
 
 export const scoreDimension = createAction(
   SCORE_DIMENSION,
   (dimension, value) => ({
     [dimension]: value,
-  })
+  }),
 );
 
 export const setSession = createAction(
   SESSION,
-  (key) => ({ session: key })
+  (key) => ({ session: key }),
 );
 
-
+export const setChartType = createAction(
+  CHART,
+  (key) => ({ chart: key }),
+);

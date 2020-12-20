@@ -2,8 +2,8 @@ import { combineReducers } from 'redux';
 import {
   PRE_DIMENSION,
   POST_DIMENSION,
-  DEMOGRAPHICS_DIMENSION,
   SESSION,
+  CHART,
 } from '../resources/constants';
 
 function pre(state = {}, action) {
@@ -24,15 +24,6 @@ function post(state = {}, action) {
   }
 }
 
-function demographics(state = {}, action) {
-  switch (action.type) {
-    case DEMOGRAPHICS_DIMENSION:
-      return { ...state, ...action.payload };
-    default:
-      return { ...state };
-  }
-}
-
 function session(state = {}, action) {
   switch (action.type) {
     case SESSION:
@@ -42,9 +33,18 @@ function session(state = {}, action) {
   }
 }
 
+function chart(state = {}, action) {
+  switch (action.type) {
+    case CHART:
+      return { ...state, ...action.payload };
+    default:
+      return { ...state };
+  }
+}
+
 export default combineReducers({
   pre,
   post,
-  demographics,
-  session
+  session,
+  chart,
 });

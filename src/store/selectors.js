@@ -40,3 +40,8 @@ export const getEmptyData = createSelector(
   getPostData,
   (pre, post) => isEmpty({ ...post, ...pre }),
 );
+
+export const getChartType = createSelector(
+  (state) => get(state, ['chart', 'chart'], 'radar'),
+  chart => chart,
+);

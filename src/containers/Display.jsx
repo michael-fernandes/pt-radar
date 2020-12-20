@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMeasure } from 'react-use';
 import { ChartArea } from '../components/custom/chart';
-import ChartButtons from './ChartButtons';
 import RadarChart from '../components/charts/RadarChart';
 import NoData from '../components/ui/NoData';
-import { getEmptyData } from '../store/selectors';
+import { getEmptyData, getChartType } from '../store/selectors';
 
 import { RADAR, CONCENTRIC } from '../resources/constants';
 
@@ -15,11 +14,11 @@ const charts = {
 };
 
 export default function Chart() {
-  const [view, setView] = useState(RADAR);
   const [ref, { width, height }] = useMeasure();
   const enteredData = useSelector(getEmptyData);
+  const chart = useSelector(getChartType);
 
-  const ChartComponent = charts[view];
+  const ChartComponent = charts[chart];
 
   return (
     <>
@@ -31,7 +30,6 @@ export default function Chart() {
             : (
               <div className="chart">
                 <ChartComponent width={width} height={height} className="single-chart-chart" />
-                <ChartButtons setView={setView} />
               </div>
             )}
         </div>

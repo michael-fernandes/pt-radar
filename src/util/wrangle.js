@@ -19,7 +19,7 @@ export function flatData({ levels, dims }) {
   sortBy(Object.keys(dims), (a, b) => LABEL_ORDER.indexOf(a) - LABEL_ORDER.indexOf(b))
     .forEach((d) => {
       for (let i = 0; i < levels; i++) {
-        const active = i < dims[d];
+        const active = i <= dims[d];
         dataSet.push({
           slice,
           name: d,
@@ -32,7 +32,7 @@ export function flatData({ levels, dims }) {
       labels.push({ name: NAME_LOOKUP[d], slice });
       slice += 1;
     });
-
+  window.d = dataSet;
   return { data: dataSet, labels };
 }
 
@@ -50,6 +50,6 @@ export function shapeData(inputData) {
   return flatData({
     dims: filteredInput,
     partitions: Object.keys(filteredInput).length - 1,
-    levels: 5,
+    levels: 6,
   });
 }

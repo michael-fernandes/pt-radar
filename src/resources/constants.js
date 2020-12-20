@@ -80,3 +80,5 @@ export const SESSION = 'SESSION';
 
 export const RADAR = 'radar';
 export const CONCENTRIC = 'concentric'
+
+export const CHART = 'CHART';

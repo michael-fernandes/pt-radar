@@ -6,8 +6,12 @@ import { arc, min, select } from 'd3';
 import {
   PAD_ANGLE, SPACE_BETWEEN_ARCS, COLORS, INNER_RADIUS,
 } from '../../../util';
+import { RadioSession } from '../../ui';
 import { getSessionData } from '../../../store/selectors';
 
+const DISABLED_OPACITY = 0.1;
+const ACTIVE_OPACITY = 0.75;
+const TEXT_WIDTH = 150;
 const xRadius = (radius, theta, slice) => (radius) * Math.sin(theta * (slice) + theta / 2);
 
 const yRadius = (radius, theta, slice) => (radius) * Math.cos(theta * (slice) + theta / 2) * -1;
@@ -24,14 +28,14 @@ function ChartArea({ width, height }) {
   const slices = data.labels.length;
   const partitions = 6.5; // positions label at 5.5
 
-  const sq = min([width, height]) - 150;
+  const sq = min([width, height - 20]) - TEXT_WIDTH;
   const radius = (sq / 2) - 20;
-  const theta = 2 * Math.PI / slices;
+  const theta = (2 * Math.PI) / slices;
 
   const ringWidth = (radius - INNER_RADIUS) / (partitions);
 
   const getAngle = useCallback(
-    (partition) => ((2 * Math.PI / slices) * partition),
+    (partition) => (((2 * Math.PI) / slices) * partition),
     [slices],
   );
 
@@ -62,57 +66,48 @@ function ChartArea({ width, height }) {
       .cornerRadius(1)();
   }, [getAngle, ringWidth]);
 
-  // const makeCentroid = (slice, level) => {
-  //   let startRadius = (level * ringWidth) + INNER_RADIUS;
-  //   return arc().innerRadius(startRadius + 0.25)
-  //     .outerRadius(startRadius + ringWidth)
-  //     .startAngle(getAngle(slice))
-  //     .endAngle(getAngle(slice + 1))
-  //     .padAngle(PAD_ANGLE)
-  //     .padRadius(radius)
-  //     .cornerRadius(1)();
-  // }
-
   const enterRadar = useCallback((enter) => {
     enter
       .append('path')
       .attr('key', (d) => `${d.name + d.level}`)
       .attr('transform', `translate(${width / 2},${height / 2})`)
       .attr('d', (d) => arcGen(d.slice, d.level))
-      .attr('opacity', (d) => (d.active ? 1.0 : 0.2))
+      .attr('opacity', (d) => (d.active ? ACTIVE_OPACITY : DISABLED_OPACITY))
       .attr('fill', (d) => COLORS[d.level])
       .attr('className', (d) => `${d.name}`);
   }, [arcGen, height, width]);
 
-  const updateRadar = useCallback((enter) => {
+  const updateRadar = useCallback((enter) =>
     enter
       .attr('transform', `translate(${width / 2},${height / 2})`)
       .attr('d', (d) => arcGen(d.slice, d.level))
-      .attr('opacity', (d) => (d.active ? 1.0 : 0.2))
-      .attr('fill', (d) => COLORS[d.level]);
-  }, [arcGen, height, width]);
+      .attr('opacity', (d) => (d.active ? ACTIVE_OPACITY : DISABLED_OPACITY))
+      .attr('fill', (d) => COLORS[d.level]),
+    [arcGen, height, width]);
 
-  const textUpdate = useCallback((update) => update
-    .attr('x', (d) => xRadius(radius, theta, d.slice))
-    .attr('y', (d) => yRadius(radius, theta, d.slice) + yTextOffset(theta, d.slice))
-    .attr('color', (d, i) => 'orange')
-    .attr('text-anchor', (d) => getAnchor(d))
-    .text((d) => d.name),
-    [radius, theta]);
+  const textUpdate = useCallback((update) => {
+    update
+      .attr('transform', `translate(${width / 2},${height / 2})`)
+      .attr('x', (d) => xRadius(radius, theta, d.slice))
+      .attr('y', (d) => yRadius(radius, theta, d.slice) + yTextOffset(theta, d.slice))
+      .attr('text-anchor', (d) => getAnchor(d))
+      .attr('color', d => console.log(d))
+      .text((d) => d.name);
+  }, [height, width]);
 
   const textEnter = useCallback((enter) => enter
     .append('text')
     .attr('transform', `translate(${width / 2},${height / 2})`)
-    .attr('key', (d) => `${d.name + d.slice}`)
     .attr('class', 'labels')
     .attr('font-size', 12)
     .attr('text-anchor', (d) => getAnchor(d))
     .text((d) => d.name)
     .attr('x', (d) => xRadius(radius, theta, d.slice))
     .attr('y', (d) => yRadius(radius, theta, d.slice) + yTextOffset(theta, d.slice)),
-    [slices, width, height, theta]);
+    [height, width]);
 
   useEffect(() => {
+    // Select Radar
     if (ref.current && data.data) {
       select(ref.current)
         .selectAll('path')
@@ -120,6 +115,7 @@ function ChartArea({ width, height }) {
         .join(enterRadar, updateRadar, (exit) => exit.remove());
     }
 
+    // Select labels
     if (textRef.current && data.labels) {
       select(textRef.current) // rays
         .selectAll('.labels')
@@ -129,10 +125,18 @@ function ChartArea({ width, height }) {
   }, [width, height, enterRadar, data.data, data.labels]);
 
   return (
-    <svg width={width} height={height}>
-      <g className="concentric-radar" ref={ref} />
-      <g className="labels" ref={textRef} />
-    </svg>
+    <div>
+      <div>
+        <svg width={width} height={height}>
+          <g className="concentric-radar" ref={ref} />
+          <g className="labels" ref={textRef} />
+        </svg>
+      </div>
+      <div className="radio-buttons">
+        <RadioSession />
+      </div>
+    </div>
+
   );
 }
 

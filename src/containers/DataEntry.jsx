@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import Drawer from 'react-drag-drawer';
 import { useIsMobileContext } from '../App';
 

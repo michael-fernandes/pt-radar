@@ -17,12 +17,11 @@ export default function Chart() {
   const [ref, { width, height }] = useMeasure();
   const enteredData = useSelector(getEmptyData);
   const chart = useSelector(getChartType);
-
   const ChartComponent = charts[chart];
 
   return (
     <>
-      <h2>Physio Map</h2>
+      <h1>PhysioMap</h1>
       <div ref={ref} className="single-chart-wrapper">
         <div className="chart-wrapper">
           {enteredData

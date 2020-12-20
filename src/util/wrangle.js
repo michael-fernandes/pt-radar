@@ -32,7 +32,7 @@ export function flatData({ levels, dims }) {
       labels.push({ name: NAME_LOOKUP[d], slice });
       slice += 1;
     });
-  window.d = dataSet;
+
   return { data: dataSet, labels };
 }
 

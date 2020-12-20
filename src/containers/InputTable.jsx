@@ -32,6 +32,7 @@ function InputTable() {
       onTabClick={handleTab}
       activeKey={session}
       tabBarExtraContent={<ChartButtons session={session} />}
+      className={'ant-tabs'}
     >
       <TabPane tab="Pre" key='Pre' >
         <Session sessionType={PRE_DIMENSION} data={preData} />

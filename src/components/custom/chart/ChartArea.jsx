@@ -132,10 +132,9 @@ function ChartArea({ width, height }) {
         </svg>
       </div>
       <div className="radio-buttons">
-        <RadioSession />
+        <ToggleChart />
       </div>
     </div>
-
   );
 }
 

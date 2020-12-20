@@ -6,17 +6,18 @@ import { arc, min, select } from 'd3';
 import {
   PAD_ANGLE, SPACE_BETWEEN_ARCS, COLORS, INNER_RADIUS,
 } from '../../../util';
-import { RadioSession } from '../../ui';
+import { ToggleChart } from '../../ui';
 import { getSessionData } from '../../../store/selectors';
 
 const DISABLED_OPACITY = 0.1;
 const ACTIVE_OPACITY = 0.75;
 const TEXT_WIDTH = 150;
 const xRadius = (radius, theta, slice) => (radius) * Math.sin(theta * (slice) + theta / 2);
+// const xRadius = (radius, theta, slice) => { console.log((radius, theta, slice)); return xFunc((radius, theta, slice)); };
 
 const yRadius = (radius, theta, slice) => (radius) * Math.cos(theta * (slice) + theta / 2) * -1;
-const isFullRadian = (theta, slice) => (10 * ((slice + 1 / 2) * theta / Math.PI) % 10 == 0);
 
+const isFullRadian = (theta, slice) => (10 * ((slice + 1 / 2) * theta / Math.PI) % 10 == 0);
 const yTextOffset = (theta, slice) => (isFullRadian(theta, slice) ? 5 : 0);
 
 function ChartArea({ width, height }) {
@@ -45,11 +46,8 @@ function ChartArea({ width, height }) {
         return 'middle';
       }
 
-      const circlePosition = Math.round((slice / slices) * 100) / 100;
-      if (circlePosition < 0.5) {
-        return 'start';
-      }
-      return 'end';
+      const isRightOfCenter = Math.round((slice / slices) * 100) / 100 < 0.5;
+      return isRightOfCenter ? 'start' : 'end';
     },
     [width, height, theta, slices],
   );
@@ -77,49 +75,50 @@ function ChartArea({ width, height }) {
       .attr('className', (d) => `${d.name}`);
   }, [arcGen, height, width]);
 
-  const updateRadar = useCallback((enter) =>
-    enter
+  const updateRadar = useCallback((update) =>
+    update
       .attr('transform', `translate(${width / 2},${height / 2})`)
       .attr('d', (d) => arcGen(d.slice, d.level))
       .attr('opacity', (d) => (d.active ? ACTIVE_OPACITY : DISABLED_OPACITY))
       .attr('fill', (d) => COLORS[d.level]),
     [arcGen, height, width]);
 
-  const textUpdate = useCallback((update) => {
-    update
+  const textUpdate = useCallback((enter) =>
+    enter
       .attr('transform', `translate(${width / 2},${height / 2})`)
+      .attr('text-anchor', (d) => getAnchor(d))
+      .attr('x', (d) => xRadius(radius, theta, d.slice))
+      .attr('y', (d) => yRadius(radius, theta, d.slice) + yTextOffset(theta, d.slice)),
+    [theta, height, width]);
+
+  const textEnter = useCallback((enter) => {
+    enter
+      .append('text')
+      .attr('key', d => `${d.name}`)
+      .attr('transform', `translate(${width / 2},${height / 2})`)
+      .attr('class', 'labels')
+      .attr('font-size', 12)
+      .attr('text-anchor', (d) => getAnchor(d))
       .attr('x', (d) => xRadius(radius, theta, d.slice))
       .attr('y', (d) => yRadius(radius, theta, d.slice) + yTextOffset(theta, d.slice))
-      .attr('text-anchor', (d) => getAnchor(d))
-      .attr('color', d => console.log(d))
       .text((d) => d.name);
-  }, [height, width]);
-
-  const textEnter = useCallback((enter) => enter
-    .append('text')
-    .attr('transform', `translate(${width / 2},${height / 2})`)
-    .attr('class', 'labels')
-    .attr('font-size', 12)
-    .attr('text-anchor', (d) => getAnchor(d))
-    .text((d) => d.name)
-    .attr('x', (d) => xRadius(radius, theta, d.slice))
-    .attr('y', (d) => yRadius(radius, theta, d.slice) + yTextOffset(theta, d.slice)),
-    [height, width]);
+  }, [theta, height, width]);
 
   useEffect(() => {
     // Select Radar
     if (ref.current && data.data) {
       select(ref.current)
         .selectAll('path')
-        .data(data.data, ({ key }) => key)
+        .data(data.data)
         .join(enterRadar, updateRadar, (exit) => exit.remove());
     }
 
     // Select labels
     if (textRef.current && data.labels) {
+      console.log(data.labels);
       select(textRef.current) // rays
         .selectAll('.labels')
-        .data(data.labels, (key) => key)
+        .data(data.labels)
         .join(textEnter, textUpdate, (exit) => exit.remove());
     }
   }, [width, height, enterRadar, data.data, data.labels]);

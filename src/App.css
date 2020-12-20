@@ -6,6 +6,7 @@
 body {
   overflow-x: hidden;
   position: relative;
+  padding-top: 10px; /* TODO: add overall padding */
 }
 
 h2 {

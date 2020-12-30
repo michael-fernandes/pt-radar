@@ -51,6 +51,18 @@ export default function RadarChart({ width, height }) {
       data={data}
       width={width - chartMargin.x}
       height={height - chartMargin.y}
-      options={{ maintainAspectRatio: false }} />);
+      options={{ 
+        maintainAspectRatio: false, 
+        scale: {
+          showLabelBackdrop: true,
+          backdropColor: 'white',
+          ticks: {
+            min: 0,
+            max: 5,
+            stepSize: 1.0,
+          },
+        } 
+      }}
+  />);
 }
 

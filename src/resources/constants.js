@@ -27,7 +27,30 @@ export const NAME_LOOKUP = {
   [TURN_VELOCITY_ID]: 'Turn Peak Velocity',
   [FTSTS_TIME]: 'FTSTS Time',
   [SIT_TO_STAND_DURATION]: 'Sit to Stand',
+};
+
+export const LABEL_ORDER = [
+  GAIT_ID,
+  STRIDE_LENGTH_ID,
+  BALANCE_ID,
+  SWAY_AREA_ID,
+  SWAY_RMS_ID,
+  TURN_DURATION_ID,
+  TURN_VELOCITY_ID,
+  FTSTS_TIME,
+  SIT_TO_STAND_DURATION,
+];
+
+//https://stackoverflow.com/questions/23013573/swap-key-with-value-json
+function objectFlip(obj) {
+  const ret = {};
+  Object.keys(obj).forEach(key => {
+    ret[obj[key]] = key;
+  });
+  return ret;
 }
+
+export const SHORT_NAME_REVERSE = objectFlip(NAME_LOOKUP);
 
 export const AGE = 'Age';
 export const COGNITIVE_STATUS = 'Cognitive Status';
@@ -55,16 +78,7 @@ export const SCORE_DIMENSION = 'SCORE_DIMENSION';
 // Session
 export const SESSION = 'SESSION';
 
+export const RADAR = 'radar';
+export const CONCENTRIC = 'concentric'
 
-export const LABEL_ORDER = [
-  GAIT_ID,
-  STRIDE_LENGTH_ID,
-  BALANCE_ID,
-  SWAY_AREA_ID,
-  SWAY_RMS_ID,
-  TURN_DURATION_ID,
-  TURN_VELOCITY_ID,
-  FTSTS_TIME,
-  SIT_TO_STAND_DURATION,
-];
-
+export const CHART = 'CHART';

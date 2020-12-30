@@ -17,7 +17,10 @@ const greaterThan = (a, b) => a > b;
 
 const gaitBins = {
   operator: lessThan,
-  bins: [0.71, 0.86, 0.99, 1.33, Infinity]
+  // 0 - 0.71 => 0, 
+  // 0.71 - 0.85 => 1
+
+  bins: [0.71, 0.86, 0.99, 1.34, Infinity]
 };
 
 const strideBins = {
@@ -59,7 +62,7 @@ const turnVelocityBins = {
 const ftstsBins = {
   operator: greaterThan,
   bins: [60, 27.38, 18.17, 14.75, 11.0, -Infinity],
-  shift: 0,
+  startIndex: 0,
 };
 
 // > 3.71 	3.71 -  1.31	1.30 - 1.11	1.12-1.0	<0.99
@@ -68,12 +71,16 @@ const sitToStandBins = {
   bins: [3.71, 1.31, 1.11, 1.0, -Infinity],
 };
 
-function bin(val, { bins, operator, shift = 0 }) {
+function bin(val, { bins, operator, startIndex = 1 }) {
   const numReg = /\d+/;
   if (isNull(val.match(numReg))) {
+    // assume any non number is unable
     return 0;
+  } else if (!Number(val)) {
+    // bin zero depending on operator
+    return operator(val, -1) ? 5 : 0;
   } else {
-    return bins.findIndex((d) => operator(val, d)) + shift;
+    return bins.findIndex((d) => operator(val, d)) + startIndex;
   }
 }
 

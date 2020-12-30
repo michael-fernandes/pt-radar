@@ -2,10 +2,11 @@ import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import { getPreData, getPostData, getLabels } from '../../store/selectors';
+import { SHORT_NAME_REVERSE } from '../../resources/constants';
 
-function getData(label, data, labels) {
+function getData(data, labels) {
   const dataSlice = []
-  labels.forEach((d) => dataSlice.push(data[d] || 0));
+  labels.forEach((d) => dataSlice.push(data[SHORT_NAME_REVERSE[d]] || 0));
   return dataSlice;
 }
 
@@ -19,7 +20,7 @@ const genSettings = (color, labels, data, label) => {
     pointHoverBackgroundColor: '#fff',
     pointHoverBorderColor: `rgb(${color})`,
     borderWidth: '10px',
-    data: getData(label, data, labels),
+    data: getData(data, labels),
   }
 }
 const chartMargin = {

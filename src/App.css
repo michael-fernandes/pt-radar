@@ -1,15 +1,13 @@
-/* .carousel-image {
-  width: 100%;
-  height: 50%;
-} */
-
 body {
   overflow-x: hidden;
   position: relative;
+  color: rgba(0,0,0,0.75);  
+  padding-top: 10px; /* TODO: add overall padding */
 }
 
-h2 {
+h1 {
   text-align: center;
+  color:  rgba(0,0,0,0.75);  
 }
 
 /* no data */
@@ -24,8 +22,14 @@ h2 {
   padding: 10px;
 }
 
+.no-data > p {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.50);  
+}
+
 /* drawer */
-.dragg-up-button {
+.drag-up-button {
   box-shadow: -30px -10px 10px -16px rgba(0,0,0,0.75), 30px -10px 10px -16px rgba(0,0,0,0.75);
   border-radius: 8px 8px 0px 0px;
   background: white;
@@ -50,6 +54,10 @@ h2 {
   overflow: scroll;
   position: absolute;
   width: 100vw;
+}
+
+.ant-tabs > .ant-tabs-nav {
+  padding: 0 15px;
 }
 
 /**** data Entry *****/
@@ -81,17 +89,28 @@ h2 {
 
 .input-label {
   display: inline-block;
-  /* width: 170px; */
   font-size: 13px;
   font-weight: 500;
   margin-right: 10px;
 }
 
 .input-input {
-  display: block;
   flex: 1;
   width: 150px;
   max-width: 150px;
+}
+
+/********** Radio Buttons ********/
+.radio-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 720px){
+  .radio-buttons {
+    display: none;
+  }
 }
 
 h3 {
@@ -102,7 +121,6 @@ h3 {
 .ant-modal-body {
   padding: 10px;
 }
-
 
 .recharts-polar-radius-axis-tick-value > tspan {
   fill:black;
@@ -118,17 +136,25 @@ h3 {
 }
 
 .single-chart-chart {
-  padding: 10px;
+  padding: 10px; 
 }
 
-/* .recharts-wrapper {
-  margin: 0 auto;
-} */
+.chart { 
+  border: 2px solid white;
+  max-height: 500px;
+  height: 500px;
+  display: flex; 
+  flex-basis: 1;
+  position: relative;
+}
 
 .chart-buttons {
-  position: relative;
+  position: absolute;
+  z-index: 10;
   margin: auto;
   display: flex;
+  bottom: 0px;
+  right: 0px;
   justify-content: center;
 }
 

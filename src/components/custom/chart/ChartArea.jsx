@@ -1,61 +1,59 @@
-import React from 'react';
-import { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
+
 import { useSelector } from 'react-redux';
 
 import { arc, min, select } from 'd3';
-import { PAD_ANGLE, SPACE_BETWEEN_ARCS, COLORS, INNER_RADIUS } from '../../../util';
-import {  getSessionData, getPreData } from '../../../store/selectors';
+import {
+  PAD_ANGLE, SPACE_BETWEEN_ARCS, COLORS, INNER_RADIUS,
+} from '../../../util';
+import { ToggleChart } from '../../ui';
+import { getSessionData } from '../../../store/selectors';
 
-const pi = Math.PI;
+const DISABLED_OPACITY = 0.1;
+const ACTIVE_OPACITY = 0.75;
+const TEXT_WIDTH = 150;
+const xRadius = (radius, theta, slice) => (radius) * Math.sin(theta * (slice) + theta / 2);
+// const xRadius = (radius, theta, slice) => { console.log((radius, theta, slice)); return xFunc((radius, theta, slice)); };
 
-const radians = (degrees) => degrees * (pi/180);
+const yRadius = (radius, theta, slice) => (radius) * Math.cos(theta * (slice) + theta / 2) * -1;
 
-const xfunc = (radius, theta, slice) => 
-  (radius) * Math.cos(theta * (slice) - (theta / 2));
+const isFullRadian = (theta, slice) => (10 * ((slice + 1 / 2) * theta / Math.PI) % 10 == 0);
+const yTextOffset = (theta, slice) => (isFullRadian(theta, slice) ? 5 : 0);
 
-const xRadius = (radius, theta, slice) => {
-  const xr = xfunc(radius, theta, slice);
-  return xr;
-}
-const yRadius = (radius, theta, slice) => 
- (radius) * Math.sin(theta * (slice) - (pi / 4));
-
-function ChartArea({ width, height}) {
+function ChartArea({ width, height }) {
   const ref = useRef();
   const textRef = useRef();
-  
+
   const data = useSelector(getSessionData);
-  const preData = useSelector(getPreData);
 
   const slices = data.labels.length;
-  const partitions = 6; 
+  const partitions = 6.5; // positions label at 5.5
 
-  const sq = min([width, height]);
-  const half = sq / 2
-  const radius = half / 2;
-  const theta = radians(360 / slices);
+  const sq = min([width, height - 20]) - TEXT_WIDTH;
+  const radius = (sq / 2) - 20;
+  const theta = (2 * Math.PI) / slices;
 
   const ringWidth = (radius - INNER_RADIUS) / (partitions);
 
   const getAngle = useCallback(
-    (partition) => ((2 * Math.PI / slices ) * partition)
-  , [slices]);
-  
+    (partition) => (((2 * Math.PI) / slices) * partition),
+    [slices],
+  );
+
   const getAnchor = useCallback(
-    (d) => { 
-      const circlePosition = Math.round((d.slice / slices) * 100) / 100; 
-      if(circlePosition === 1 || circlePosition === 0.5){
-        return 'middle'
-      } else if(circlePosition < 0.5){
-        return 'start'
-      } else {
-        return 'end'
+    ({ slice }) => {
+      if (isFullRadian(theta, slice)) {
+        return 'middle';
       }
-    }
-  , [width, height, slices]);
+
+      const isRightOfCenter = Math.round((slice / slices) * 100) / 100 < 0.5;
+      return isRightOfCenter ? 'start' : 'end';
+    },
+    [width, height, theta, slices],
+  );
 
   const arcGen = useCallback((slice, level) => {
-    let startRadius = (level * ringWidth) + INNER_RADIUS;
+    const startRadius = (level * ringWidth) + INNER_RADIUS;
     return arc()
       .innerRadius(startRadius + SPACE_BETWEEN_ARCS)
       .outerRadius(startRadius + ringWidth)
@@ -64,82 +62,79 @@ function ChartArea({ width, height}) {
       .padAngle(PAD_ANGLE)
       .padRadius(radius)
       .cornerRadius(1)();
-  }, [getAngle, ringWidth ]);
-
-  // const makeCentroid = (slice, level) => {
-  //   let startRadius = (level * ringWidth) + INNER_RADIUS;
-  //   return arc().innerRadius(startRadius + 0.25)
-  //     .outerRadius(startRadius + ringWidth)
-  //     .startAngle(getAngle(slice))
-  //     .endAngle(getAngle(slice + 1))
-  //     .padAngle(PAD_ANGLE)
-  //     .padRadius(radius)
-  //     .cornerRadius(1)();
-  // }
+  }, [getAngle, ringWidth]);
 
   const enterRadar = useCallback((enter) => {
     enter
-      .append("path")
-        .attr('key', d => `${d.name + d.level}`)
-        .attr("transform", `translate(${width / 2},${height / 2})`)
-        .attr("d", d => arcGen(d.slice, d.level))
-        .attr('opacity', d =>  d.active ? 1.0 : 0.2)
-        .attr('fill', d => COLORS[d.level])
-        .attr('className', d => `${d.name}`);
+      .append('path')
+      .attr('key', (d) => `${d.name + d.level}`)
+      .attr('transform', `translate(${width / 2},${height / 2})`)
+      .attr('d', (d) => arcGen(d.slice, d.level))
+      .attr('opacity', (d) => (d.active ? ACTIVE_OPACITY : DISABLED_OPACITY))
+      .attr('fill', (d) => COLORS[d.level])
+      .attr('className', (d) => `${d.name}`);
   }, [arcGen, height, width]);
 
-  const updateRadar = useCallback((enter) => {
-    enter
-        .attr("transform", `translate(${width / 2},${height / 2})`)
-        .attr("d", d => arcGen(d.slice, d.level))
-        .attr('opacity', d =>  d.active ? 1.0 : 0.2)
-        .attr('fill', d => COLORS[d.level])
-  }, [arcGen, height, width]);
-
-  const textUpdate = useCallback((update) => 
+  const updateRadar = useCallback((update) =>
     update
-        .attr("x", (d) => xRadius(radius, theta, d.slice ))
-        .attr('y', (d) => yRadius(radius, theta, d.slice ))
-        .attr('color', (d, i) => 'orange' )
-        .attr('text-anchor', (d) => getAnchor(d))
-        // .attr('fill', (d, i) => console.log(d) )
-        .text (d => `${d.slice + d.name}`)
-    , [radius, theta]);
+      .attr('transform', `translate(${width / 2},${height / 2})`)
+      .attr('d', (d) => arcGen(d.slice, d.level))
+      .attr('opacity', (d) => (d.active ? ACTIVE_OPACITY : DISABLED_OPACITY))
+      .attr('fill', (d) => COLORS[d.level]),
+    [arcGen, height, width]);
 
-  const textEnter = useCallback((enter) => 
+  const textUpdate = useCallback((enter) =>
+    enter
+      .attr('transform', `translate(${width / 2},${height / 2})`)
+      .attr('text-anchor', (d) => getAnchor(d))
+      .attr('x', (d) => xRadius(radius, theta, d.slice))
+      .attr('y', (d) => yRadius(radius, theta, d.slice) + yTextOffset(theta, d.slice)),
+    [theta, height, width]);
+
+  const textEnter = useCallback((enter) => {
     enter
       .append('text')
-      .attr("transform", `translate(${width / 2},${height / 2})`)
-        .attr('key', d => `${d.name + d.slice}`)
-        .attr('class', 'labels')
-        .attr('font-size', 12)
-        .attr('text-anchor', (d) => getAnchor(d))
-        .text (d => `${d.slice + d.name}`)
-        .attr("x", (d) => xRadius(radius, theta, d.slice ))
-        .attr('y', (d) => yRadius(radius, theta, d.slice ))
-  , [slices, width, height, radians, theta]);
+      .attr('key', d => `${d.name}`)
+      .attr('transform', `translate(${width / 2},${height / 2})`)
+      .attr('class', 'labels')
+      .attr('font-size', 12)
+      .attr('text-anchor', (d) => getAnchor(d))
+      .attr('x', (d) => xRadius(radius, theta, d.slice))
+      .attr('y', (d) => yRadius(radius, theta, d.slice) + yTextOffset(theta, d.slice))
+      .text((d) => d.name);
+  }, [theta, height, width]);
 
-  useEffect(()=> {
-    if(ref.current && data.data){
+  useEffect(() => {
+    // Select Radar
+    if (ref.current && data.data) {
       select(ref.current)
-      .selectAll('path')
-      .data(data.data, ({key}) => key)
-      .join(enterRadar, updateRadar, exit => exit.remove());
+        .selectAll('path')
+        .data(data.data)
+        .join(enterRadar, updateRadar, (exit) => exit.remove());
     }
 
-    if(textRef.current && data.labels) {
+    // Select labels
+    if (textRef.current && data.labels) {
+      console.log(data.labels);
       select(textRef.current) // rays
-        .selectAll(".labels")
-        .data(data.labels, key => key)
-        .join(textEnter, textUpdate, exit => exit.remove());
+        .selectAll('.labels')
+        .data(data.labels)
+        .join(textEnter, textUpdate, (exit) => exit.remove());
     }
-  }, [ width, height, enterRadar, data.data, data.labels ]);
+  }, [width, height, enterRadar, data.data, data.labels]);
 
   return (
-    <svg width={width} height={height} className="chart" >
-      <g className="concentric-radar"  ref={ref} />
-      <g className="labels" ref={textRef} />
-    </svg>
+    <div>
+      <div>
+        <svg width={width} height={height}>
+          <g className="concentric-radar" ref={ref} />
+          <g className="labels" ref={textRef} />
+        </svg>
+      </div>
+      <div className="radio-buttons">
+        <ToggleChart />
+      </div>
+    </div>
   );
 }
 

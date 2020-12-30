@@ -1,6 +1,8 @@
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useContext } from 'react';
+// import { Context } from '../App';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { ChartButtons } from '../components/ui';
 import { setSession } from '../store/actions';
 
 import { Tabs } from 'antd';
@@ -14,7 +16,7 @@ import {
 
 const { TabPane } = Tabs;
 
-function InputTable({ isMobile }) {
+function InputTable() {
   const dispatch = useDispatch();
   const preData = useSelector(getPreData);
   const postData = useSelector(getPostData);
@@ -28,13 +30,15 @@ function InputTable({ isMobile }) {
   return (
     <Tabs
       onTabClick={handleTab}
-      // tabBarStyle={{ padding: 0, margin: 0 }}
-      activeKey={session} >
+      activeKey={session}
+      tabBarExtraContent={<ChartButtons session={session} />}
+      className={'ant-tabs'}
+    >
       <TabPane tab="Pre" key='Pre' >
-        <Session sessionType={PRE_DIMENSION} data={preData} isMobile={isMobile} />
+        <Session sessionType={PRE_DIMENSION} data={preData} />
       </TabPane>
       <TabPane tab="Post" key='Post'>
-        <Session sessionType={POST_DIMENSION} data={postData} isMobile={isMobile} />
+        <Session sessionType={POST_DIMENSION} data={postData} />
       </TabPane>
     </Tabs>
   );

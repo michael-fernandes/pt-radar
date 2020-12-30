@@ -1,17 +1,6 @@
 import { createSelector } from 'reselect';
 import { shapeData, sortLabelsByOrder } from '../util';
 import { isEmpty, get } from 'lodash';
-import {
-  GAIT_ID,
-  STRIDE_LENGTH_ID,
-  BALANCE_ID,
-  SWAY_AREA_ID,
-  SWAY_RMS_ID,
-  TURN_DURATION_ID,
-  TURN_VELOCITY_ID,
-  FTSTS_TIME,
-  SIT_TO_STAND_DURATION,
-} from '../resources/constants';
 
 export const getPreData = createSelector(
   (state) => get(state, ['pre'], {}),
@@ -50,4 +39,9 @@ export const getEmptyData = createSelector(
   getPreData,
   getPostData,
   (pre, post) => isEmpty({ ...post, ...pre }),
+);
+
+export const getChartType = createSelector(
+  (state) => get(state, ['chart', 'chart'], 'radar'),
+  chart => chart,
 );

@@ -5,7 +5,7 @@ body {
   padding-top: 10px; /* TODO: add overall padding */
 }
 
-h1 {
+h1, h4 {
   text-align: center;
   color:  rgba(0,0,0,0.75);  
 }
@@ -160,4 +160,9 @@ h3 {
 
 .chart-buttons > button {
   margin: 10px;
+}
+
+.custom-chart {
+  text-align: center;
+  width: 100%;
 }

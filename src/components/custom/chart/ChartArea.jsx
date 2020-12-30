@@ -6,7 +6,7 @@ import { arc, min, select } from 'd3';
 import {
   PAD_ANGLE, SPACE_BETWEEN_ARCS, COLORS, INNER_RADIUS,
 } from '../../../util';
-import { ToggleChart } from '../../ui';
+import { ToggleChart, NoData } from '../../ui';
 import { getSessionData } from '../../../store/selectors';
 
 const DISABLED_OPACITY = 0.1;
@@ -122,14 +122,16 @@ function ChartArea({ width, height }) {
         .join(textEnter, textUpdate, (exit) => exit.remove());
     }
   }, [width, height, enterRadar, data.data, data.labels]);
-
+  console.log(data);
   return (
-    <div>
+    <div className="custom-chart">
       <div>
+      {data.data.length ?
         <svg width={width} height={height}>
           <g className="concentric-radar" ref={ref} />
           <g className="labels" ref={textRef} />
         </svg>
+        : <NoData />}
       </div>
       <div className="radio-buttons">
         <ToggleChart />
